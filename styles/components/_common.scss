@@ -1,0 +1,71 @@
+/* --- Actions --- */
+.actions {
+	display: flex;
+
+	a {
+		min-width: 56px;
+		height: 56px;
+		padding: 14px;
+		box-sizing: border-box;
+
+		font: $light 2.5rem/1.33 'Relish Pro';
+		color: $light-text-color;
+
+		&.selected {
+			color: $regular-text-color;
+			font: $semibold 2.6rem/1.33 'Relish Pro';
+		}
+
+		&.disabled {
+			opacity: .2;
+		}
+	}
+
+	.icon {
+		background: url('/images/icons_act.svg') no-repeat;
+		border-radius: 50%;
+		transition: background-color $fast;
+
+		&.home { background-position: 0 0; }
+		&.close { background-position: 0 -60px; }
+		&.back { background-position: 0 -120px; }
+		&.forward { background-position: 0 -180px; }
+
+		&:active { background-color: rgb(252, 236, 224); }
+	}
+}
+
+/* --- Colors --- */
+$colors: (
+	map_regions: $accent-color-red,
+	map_landscape: $accent-color-yellow,
+	map_reserves: $accent-color-green,
+	map_waters: $accent-color-blue,
+	map_geology: $accent-color-brown,
+
+	grp_flora: $accent-color-green,
+	grp_fauna: $accent-color-red,
+	grp_waters: $accent-color-blue,
+	grp_earth: $accent-color-brown
+);
+
+@each $key, $value in $colors {
+	.#{ $key } {
+		.colored {
+			background-color: $value;
+
+			&.fill { fill: $value; }
+			&.stroke { stroke: $value; }
+		};
+
+		&::before, &::after {
+			background-color: $value;
+		}
+	}
+}
+
+/* --- Animations --- */
+@keyframes pulse {
+	from { transform: scale(1); opacity: .6; }
+	to { transform: scale(1.67); opacity: 0; }
+}

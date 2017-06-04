@@ -1,0 +1,109 @@
+/* --- Fonts --- */
+@font-face { font-family: 'Proxima Nova'; font-weight: 400; src: url('/fonts/proxima-nova_regular.otf'); }
+@font-face { font-family: 'Proxima Nova'; font-weight: 600; src: url('/fonts/proxima-nova_semibold.otf'); }
+@font-face { font-family: 'Proxima Nova'; font-weight: 700; src: url('/fonts/proxima-nova_bold.otf'); }
+
+@font-face { font-family: 'Relish Pro'; font-weight: 600; src: url('/fonts/relish-pro_medium.ttf'); }
+@font-face { font-family: 'Relish Pro'; font-weight: 300; src: url('/fonts/relish-pro_light.ttf'); }
+@font-face { font-family: 'Relish Pro'; font-weight: 200; src: url('/fonts/relish-pro_condensed-light.ttf'); }
+
+$condensed: 200;
+$light: 300;
+$regular: 400;
+$semibold: 600;
+$bold: 700;
+
+$base-font-family: 'Proxima Nova';
+$base-font-size: 1.3rem;
+$base-line-height: 1.3;
+
+/* --- Colors --- */
+
+/* backgrounds */
+$page-bkg-color: rgb(250, 250, 250);
+$panel-bkg-color: rgb(255, 255, 255);
+
+/* components */
+$shadow-color: rgba(0, 0, 0, .1);
+
+/* text */
+$regular-text-color: rgb(0, 0, 0);
+$link-text-color: rgb(0, 0, 0);
+$light-text-color: rgba(0, 0, 0, .4);
+
+/* accents */
+$accent-color-red: rgb(237, 130, 106);
+$accent-color-yellow: rgb(243, 178, 126);
+$accent-color-green: rgb(167, 207, 122);
+$accent-color-blue: rgb(130, 198, 231);
+$accent-color-brown: rgb(194, 171, 171);
+
+/* pois */
+/*
+$poi-red-color: rgb(228, 0, 0);
+$poi-orange-color: rgb(241, 124, 0);
+$poi-lightbrown-color: rgb(178, 167, 127);
+$poi-brown-color: rgb(115, 102, 99);
+$poi-lightgreen-color: rgb(111, 181, 5);
+$poi-green-color: rgb(0, 120, 84);
+$poi-blue-color: rgb(58, 121, 184);
+$poi-lightblue-color: rgb(128, 181, 215);
+$poi-purple-color: rgb(168, 18, 130);
+$poi-violet-color: rgb(94, 57, 195);
+$poi-yellow-color: rgb(200, 160, 0);
+$poi-yellowgreen-color: rgb(167, 176, 88);
+*/
+
+/* --- Base --- */
+html {
+	font-size: 62.5%; /* maps '1rem' to '10px' */
+	background: $page-bkg-color url(/images/bkg.png);
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+body {
+	margin: 0;
+	color: $regular-text-color;
+
+	font-family: $base-font-family;
+	font-size: 1.6rem;
+	line-height: 1.231;
+	letter-spacing: -0.05rem;
+
+	user-select: none;
+	-webkit-font-smoothing: antialiased;
+	-webkit-overflow-scrolling: auto;
+	-webkit-user-drag: none;
+	-webkit-tap-highlight-color: transparent;
+
+	&.lock { overflow: hidden; }
+}
+
+/* --- Reset --- */
+h1, h2, h3, p,
+ul, li {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+}
+
+ul, li,  {
+	list-style: none;
+}
+
+a {
+	display: block;
+	color: $link-text-color;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+img {
+	display: block;
+}
+
+/* --- Transitions --- */
+$fast: .12s;
+$slow: .8s;

@@ -1,0 +1,108 @@
+.map {
+	width: 2250px;
+	height: 4000px;
+	margin-bottom: 80px; //toolbar area
+	background: white url('/images/map.png') no-repeat;
+	position: relative;
+	transform-origin: top left;
+
+	.pois {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+
+		.poi {
+			cursor: pointer;
+			transform-origin: 29px 73px;
+
+			.selection {
+				display: none;
+			}
+
+			&.selected {
+				.drop {
+					animation: pulse $slow linear infinite alternate;
+					transform-origin: center;
+				}
+
+				.selection {
+					display: block;
+					animation: beacon .8s infinite;
+					transform-origin: center;
+				}
+			}
+
+			@keyframes pulse {
+				from { transform: scale(1); }
+				to { transform: scale(1.12); }
+			}
+
+			@keyframes beacon {
+				from { transform: scale(1); opacity: 1; }
+				to { transform: scale(4.8); opacity: 0; }
+			}
+
+			&.monument {
+				.drop, .selection { fill: $poi-red-color; }
+				.icon { transform: translateX(0); }
+			}
+
+			&.castle {
+				.drop, .selection { fill: $poi-orange-color; }
+				.icon { transform: translateX(-100px); }
+			}
+
+			&.cave {
+				.drop, .selection { fill: $poi-lightbrown-color; }
+				.icon { transform: translateX(-200px); }
+			}
+
+			&.mine {
+				.drop, .selection { fill: $poi-brown-color; }
+				.icon { transform: translateX(-300px); }
+			}
+
+			&.tourist {
+				.drop, .selection { fill: $poi-lightgreen-color; }
+				.icon { transform: translateX(-400px); }
+			}
+
+			&.peak {
+				.drop, .selection { fill: $poi-green-color; }
+				.icon { transform: translateX(-500px); }
+			}
+
+			&.water {
+				.drop, .selection { fill: $poi-blue-color; }
+				.icon { transform: translateX(-600px); }
+			}
+
+			&.spa {
+				.drop, .selection { fill: $poi-lightblue-color; }
+				.icon { transform: translateX(-700px); }
+			}
+
+			&.site {
+				.drop, .selection { fill: $poi-purple-color; }
+				.icon { transform: translateX(-800px); }
+			}
+
+			&.construction {
+				.drop, .selection { fill: $poi-violet-color; }
+				.icon { transform: translateX(-900px); }
+			}
+
+			&.summer {
+				.drop, .selection { fill: $poi-yellow-color; }
+				.icon { transform: translateX(-1000px); }
+			}
+
+			&.winter {
+				.drop, .selection { fill: $poi-yellowgreen-color; }
+				.icon { transform: translateX(-1100px); }
+			}
+		}
+	}
+}

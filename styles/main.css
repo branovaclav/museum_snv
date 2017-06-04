@@ -1,0 +1,573 @@
+/* --- Fonts --- */
+@font-face {
+  font-family: 'Proxima Nova';
+  font-weight: 400;
+  src: url("/fonts/proxima-nova_regular.otf"); }
+
+@font-face {
+  font-family: 'Proxima Nova';
+  font-weight: 600;
+  src: url("/fonts/proxima-nova_semibold.otf"); }
+
+@font-face {
+  font-family: 'Proxima Nova';
+  font-weight: 700;
+  src: url("/fonts/proxima-nova_bold.otf"); }
+
+@font-face {
+  font-family: 'Relish Pro';
+  font-weight: 600;
+  src: url("/fonts/relish-pro_medium.ttf"); }
+
+@font-face {
+  font-family: 'Relish Pro';
+  font-weight: 300;
+  src: url("/fonts/relish-pro_light.ttf"); }
+
+@font-face {
+  font-family: 'Relish Pro';
+  font-weight: 200;
+  src: url("/fonts/relish-pro_condensed-light.ttf"); }
+
+/* --- Colors --- */
+/* backgrounds */
+/* components */
+/* text */
+/* accents */
+/* pois */
+/*
+$poi-red-color: rgb(228, 0, 0);
+$poi-orange-color: rgb(241, 124, 0);
+$poi-lightbrown-color: rgb(178, 167, 127);
+$poi-brown-color: rgb(115, 102, 99);
+$poi-lightgreen-color: rgb(111, 181, 5);
+$poi-green-color: rgb(0, 120, 84);
+$poi-blue-color: rgb(58, 121, 184);
+$poi-lightblue-color: rgb(128, 181, 215);
+$poi-purple-color: rgb(168, 18, 130);
+$poi-violet-color: rgb(94, 57, 195);
+$poi-yellow-color: rgb(200, 160, 0);
+$poi-yellowgreen-color: rgb(167, 176, 88);
+*/
+/* --- Base --- */
+html {
+  font-size: 62.5%;
+  /* maps '1rem' to '10px' */
+  background: #fafafa url(/images/bkg.png);
+  width: 100%;
+  height: 100%;
+  position: relative; }
+
+body {
+  margin: 0;
+  color: black;
+  font-family: "Proxima Nova";
+  font-size: 1.6rem;
+  line-height: 1.231;
+  letter-spacing: -0.05rem;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: auto;
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: transparent; }
+
+body.lock {
+  overflow: hidden; }
+
+/* --- Reset --- */
+h1, h2, h3, p,
+ul, li {
+  margin: 0;
+  padding: 0;
+  font-weight: normal; }
+
+ul, li {
+  list-style: none; }
+
+a {
+  display: block;
+  color: black;
+  text-decoration: none;
+  cursor: pointer; }
+
+img {
+  display: block; }
+
+/* --- Transitions --- */
+/* --- Actions --- */
+.actions {
+  display: flex; }
+
+.actions a {
+  min-width: 56px;
+  height: 56px;
+  padding: 14px;
+  box-sizing: border-box;
+  font: 300 2.5rem/1.33 "Relish Pro";
+  color: rgba(0, 0, 0, 0.4); }
+
+.actions a.selected {
+  color: black;
+  font: 600 2.6rem/1.33 "Relish Pro"; }
+
+.actions a.disabled {
+  opacity: .2; }
+
+.actions .icon {
+  background: url("/images/icons_act.svg") no-repeat;
+  border-radius: 50%;
+  transition: background-color 0.12s; }
+
+.actions .icon.home {
+  background-position: 0 0; }
+
+.actions .icon.close {
+  background-position: 0 -60px; }
+
+.actions .icon.back {
+  background-position: 0 -120px; }
+
+.actions .icon.forward {
+  background-position: 0 -180px; }
+
+.actions .icon:active {
+  background-color: #fcece0; }
+
+/* --- Colors --- */
+.map_regions .colored {
+  background-color: #ed826a; }
+
+.map_regions .colored.fill {
+  fill: #ed826a; }
+
+.map_regions .colored.stroke {
+  stroke: #ed826a; }
+
+.map_regions::before, .map_regions::after {
+  background-color: #ed826a; }
+
+.map_landscape .colored {
+  background-color: #f3b27e; }
+
+.map_landscape .colored.fill {
+  fill: #f3b27e; }
+
+.map_landscape .colored.stroke {
+  stroke: #f3b27e; }
+
+.map_landscape::before, .map_landscape::after {
+  background-color: #f3b27e; }
+
+.map_reserves .colored {
+  background-color: #a7cf7a; }
+
+.map_reserves .colored.fill {
+  fill: #a7cf7a; }
+
+.map_reserves .colored.stroke {
+  stroke: #a7cf7a; }
+
+.map_reserves::before, .map_reserves::after {
+  background-color: #a7cf7a; }
+
+.map_waters .colored {
+  background-color: #82c6e7; }
+
+.map_waters .colored.fill {
+  fill: #82c6e7; }
+
+.map_waters .colored.stroke {
+  stroke: #82c6e7; }
+
+.map_waters::before, .map_waters::after {
+  background-color: #82c6e7; }
+
+.map_geology .colored {
+  background-color: #c2abab; }
+
+.map_geology .colored.fill {
+  fill: #c2abab; }
+
+.map_geology .colored.stroke {
+  stroke: #c2abab; }
+
+.map_geology::before, .map_geology::after {
+  background-color: #c2abab; }
+
+.grp_flora .colored {
+  background-color: #a7cf7a; }
+
+.grp_flora .colored.fill {
+  fill: #a7cf7a; }
+
+.grp_flora .colored.stroke {
+  stroke: #a7cf7a; }
+
+.grp_flora::before, .grp_flora::after {
+  background-color: #a7cf7a; }
+
+.grp_fauna .colored {
+  background-color: #ed826a; }
+
+.grp_fauna .colored.fill {
+  fill: #ed826a; }
+
+.grp_fauna .colored.stroke {
+  stroke: #ed826a; }
+
+.grp_fauna::before, .grp_fauna::after {
+  background-color: #ed826a; }
+
+.grp_waters .colored {
+  background-color: #82c6e7; }
+
+.grp_waters .colored.fill {
+  fill: #82c6e7; }
+
+.grp_waters .colored.stroke {
+  stroke: #82c6e7; }
+
+.grp_waters::before, .grp_waters::after {
+  background-color: #82c6e7; }
+
+.grp_earth .colored {
+  background-color: #c2abab; }
+
+.grp_earth .colored.fill {
+  fill: #c2abab; }
+
+.grp_earth .colored.stroke {
+  stroke: #c2abab; }
+
+.grp_earth::before, .grp_earth::after {
+  background-color: #c2abab; }
+
+/* --- Animations --- */
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    opacity: .6; }
+  to {
+    transform: scale(1.67);
+    opacity: 0; } }
+
+.map {
+  width: 800px;
+  height: 800px;
+  position: relative; }
+
+.map .pois {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+.map .pois .poi {
+  cursor: pointer; }
+
+.map .pois .poi > * {
+  transition: transform 0.12s; }
+
+.map .pois .poi .bkg {
+  fill: rgba(255, 255, 255, 0.5); }
+
+.map .pois .poi .beacon {
+  display: none;
+  fill: none;
+  stroke-width: 16px; }
+
+.map .pois .poi .point :first-child {
+  opacity: .5; }
+
+.map .pois .poi .point :last-child {
+  transition: transform 0.12s; }
+
+.map .pois .poi:active .point :last-child,
+.map .pois .poi.selected .point :last-child {
+  transform: scale(1.33); }
+
+.map .pois .poi.selected .beacon {
+  display: block;
+  animation: pulse 0.8s linear infinite; }
+
+.map .pois .poi.hidden {
+  pointer-events: none; }
+
+.map .pois .poi.hidden > * {
+  transform: scale(0); }
+
+.menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 148px;
+  background-color: white;
+  box-shadow: 0 1px rgba(0, 0, 0, 0.1);
+  z-index: 2; }
+
+.menu ul {
+  height: 100%;
+  padding: 0 76px;
+  display: flex;
+  align-items: stretch; }
+
+.menu ul li {
+  flex-grow: 1;
+  margin: 0 4px; }
+
+.menu ul li:last-child {
+  flex-grow: 0; }
+
+.menu .item {
+  height: 100%;
+  text-transform: uppercase;
+  position: relative; }
+
+.menu .item .title {
+  height: 96px;
+  padding: 54px 15px 0 70px;
+  font: 600 3.8rem/1 "Relish Pro";
+  box-sizing: border-box; }
+
+.menu .item .title.colored {
+  position: absolute;
+  width: 100%;
+  color: white;
+  clip-path: polygon(56px 0, 56px 96px, 56px 96px, 56px 0);
+  transition: opacity 0.12s, clip-path 0.12s;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="128" height="96"><rect x="0" y="0" width="128" height="96" fill="rgba(255,255,255,.5)" /></svg>'); }
+
+.menu .item .subtitle {
+  height: 42px;
+  font: 200 2.2rem/2.2 "Relish Pro";
+  color: rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.05rem;
+  white-space: nowrap; }
+
+.menu .item::before, .menu .item::after {
+  content: '';
+  position: absolute;
+  width: 56px;
+  height: 96px; }
+
+.menu .item::after {
+  opacity: 0;
+  clip-path: polygon(0 0, 0 10px, 26px 10px, 56px 10px, 56px 0);
+  transition: clip-path 0.12s; }
+
+.menu .item:active::after,
+.menu .item.selected::after {
+  opacity: 1;
+  clip-path: polygon(0 0, 0 10px, 28px 26px, 56px 10px, 56px 0); }
+
+.menu .item:active .colored {
+  clip-path: polygon(56px 0, 56px 96px, 100% 96px, 100% 0); }
+
+.sidebar {
+  position: absolute;
+  top: 148px;
+  right: 0;
+  width: 586px;
+  height: calc(100% - 148px);
+  background-color: white;
+  box-shadow: -1px 0 rgba(0, 0, 0, 0.1);
+  z-index: 1; }
+
+.sidebar .content {
+  padding: 50px 56px;
+  height: calc(100% - 186px);
+  overflow-y: auto; }
+
+.sidebar .toolbar {
+  height: 56px;
+  margin-left: 56px;
+  padding: 15px 22px 15px 0;
+  box-shadow: 0 -1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between; }
+
+.sidebar .content .headline {
+  margin-bottom: 28px;
+  text-transform: uppercase;
+  position: relative; }
+
+.sidebar .content .headline .title {
+  font: 600 3.6rem/1 "Relish Pro"; }
+
+.sidebar .content .headline .subtitle {
+  font: 200 2.2rem/1.8 "Relish Pro";
+  color: rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.05rem;
+  padding-left: 55px; }
+
+.sidebar .content .headline::after {
+  content: '';
+  position: absolute;
+  top: 44px;
+  width: 42px;
+  height: 36px;
+  clip-path: polygon(0 0, 0 20px, 21px 36px, 42px 20px, 42px 0); }
+
+.sidebar .content p {
+  margin-bottom: 24px; }
+
+.sidebar .content .groups {
+  margin-bottom: 24px;
+  padding: 0 0 20px 0;
+  column-count: 2;
+  box-shadow: 0 1px rgba(0, 0, 0, 0.1); }
+
+.sidebar .content .groups .group {
+  height: 42px;
+  margin-bottom: 8px;
+  padding-left: 56px;
+  font: 600 2.6rem/1.85 "Relish Pro";
+  text-transform: uppercase;
+  position: relative; }
+
+.sidebar .content .groups .group::before, .sidebar .content .groups .group::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 2px;
+  transition: transform 0.12s; }
+
+.sidebar .content .groups .group::before {
+  opacity: .5; }
+
+.sidebar .content .groups .group:active::after {
+  transform: scale(0.67); }
+
+.sidebar .content .groups .group.inactive {
+  color: rgba(0, 0, 0, 0.1); }
+
+.sidebar .content .groups .group.inactive::before, .sidebar .content .groups .group.inactive::after {
+  background: none; }
+
+.sidebar .content .groups .group.inactive::after {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1); }
+
+.sidebar .content .pois .poi {
+  height: 36px;
+  max-height: 36px;
+  margin: 0 0 10px 3px;
+  padding-left: 50px;
+  font: 600 2.2rem/1.85 "Relish Pro";
+  white-space: nowrap;
+  text-transform: uppercase;
+  position: relative;
+  transition: max-height 0.12s, margin 0.12s; }
+
+.sidebar .content .pois .poi::before, .sidebar .content .pois .poi::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  z-index: 1; }
+
+.sidebar .content .pois .poi::before {
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  opacity: .5; }
+
+.sidebar .content .pois .poi::after {
+  top: 8px;
+  left: 8px;
+  width: 20px;
+  height: 20px;
+  transition: transform 0.12s; }
+
+.sidebar .content .pois .poi:active:not(.selected)::after {
+  transform: scale(0.67); }
+
+.sidebar .content .pois .poi.selected::before {
+  animation: pulse 0.8s linear infinite; }
+
+.sidebar .content .pois .poi.selected::after {
+  top: 0;
+  left: 0;
+  border: solid 8px rgba(255, 255, 255, 0.5); }
+
+.sidebar .content .pois .poi.hidden {
+  max-height: 0;
+  margin-bottom: 0;
+  overflow: hidden; }
+
+.detail {
+  position: absolute;
+  left: 25px;
+  bottom: 25px;
+  width: calc(100% - 586px - 2 * 25px);
+  max-height: calc(100% - 148px - 2 * 25px);
+  background-color: white;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.12s; }
+
+.detail .titlebar {
+  padding: 25px 25px 0 40px;
+  display: flex;
+  justify-content: space-between; }
+
+.detail .titlebar .headline {
+  height: 56px;
+  padding-left: 68px;
+  text-transform: uppercase;
+  position: relative;
+  font: 600 3.6rem/1.8 "Relish Pro"; }
+
+.detail .titlebar .headline::before, .detail .titlebar .headline::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%; }
+
+.detail .titlebar .headline::before {
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 56px;
+  transition: transform 0.12s;
+  border: solid 8px rgba(255, 255, 255, 0.5);
+  box-sizing: border-box; }
+
+.detail .titlebar .headline::after {
+  top: 16px;
+  left: 16px;
+  width: 24px;
+  height: 24px;
+  background-color: white; }
+
+.detail .content {
+  padding: 24px 40px; }
+
+.detail .content p {
+  margin-bottom: 24px;
+  column-count: 3;
+  column-gap: 50px;
+  text-align: justify; }
+
+.detail .content .thumbnails {
+  display: flex;
+  overflow-x: hidden; }
+
+.detail .content .thumbnails li:not(:first-child) {
+  margin-left: 8px; }
+
+.detail .content .thumbnails a {
+  width: 174px;
+  height: 116px;
+  background-color: pink; }
+
+.detail .content .photo {
+  width: 100%;
+  height: 752px;
+  margin-bottom: 24px;
+  background-color: blue; }
+
+.detail.hidden {
+  transform: translate(0, 400px); }

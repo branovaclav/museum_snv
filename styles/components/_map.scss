@@ -1,0 +1,53 @@
+.map {
+	width: 800px;
+	height: 800px;
+	// background: white url('/images/map.png') no-repeat;
+	position: relative;
+
+	.pois {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+
+		.poi {
+			cursor: pointer;
+			& > * { transition: transform $fast; }
+
+			.bkg {
+				fill: rgba(white, .5);
+			}
+
+			.beacon {
+				display: none;
+				fill: none;
+				stroke-width: 16px;
+			}
+
+			.point {
+				:first-child { opacity: .5; }
+				:last-child { transition: transform $fast; }
+			}
+		}
+
+		.poi:active,
+		.poi.selected {
+			.point {
+				:last-child { transform: scale(1.33); }
+			}
+		}
+
+		.poi.selected {
+			.beacon {
+				display: block;
+				animation: pulse $slow linear infinite;
+			}
+		}
+
+		.poi.hidden {
+			pointer-events: none;
+			& > * { transform: scale(0); }
+		}
+	}
+}

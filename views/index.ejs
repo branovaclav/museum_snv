@@ -1,0 +1,222 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=192, height=1080, initial-scale=1">
+	<title>Spiš v kocke</title>
+
+	<!-- stylesheets -->
+	<link rel="stylesheet" href="styles/main.css">
+
+	<!-- scripts -->
+	<script src="scripts/jquery-3.2.0.min.js"></script>
+	<script src="scripts/main.js"></script>
+
+	<script>
+		let data = {
+			<% for (let poi of pois) { %>
+				<%= poi.$loki %>: {
+					title: '<%- poi.title[lang] %>',
+					description: '<%- poi.description[lang] %>',
+					group:  '<%- poi.group %>',
+					region: '<%- poi.region %>',
+					prefix: '<%- poi.prefix %>'
+				},
+			<% } %>
+		};
+
+		// console.log(JSON.stringify(data, null, 4));
+	</script>
+</head>
+<body>
+	<section class="map">
+		<svg class="pois">
+			<defs>
+				<clipPath id="svg-clip">
+					<path d="M0,34 C-18.778,34 -34,18.778 -34,0 C-34,-18.778 -18.778,-34 0,-34 C18.778,-34 34,-18.778 34,0 C34,18.778 18.778,34 0,34 Z M0,18 C9.941,18 18,9.941 18,0 C18,-9.941 9.941,-18 0,-18 C-9.941,-18 -18,-9.941 -18,0 C-18,9.941 -9.941,18 0,18 Z"></path>
+				</clipPath>
+			</defs>
+			<% for (let poi of pois) { %>
+				<g class="poi grp_<%= poi.group %>" data-poi="<%= poi.$loki %>" data-group="<%= poi.group %>" data-region="<%= poi.region %>" data-position="<%= poi.position.left %>,<%= poi.position.top %>" transform="translate(<%= poi.position.left %> <%= poi.position.top %>) scale(1)">
+					<circle class="bkg" x="0" y="0" r="35" />
+					<circle class="beacon colored stroke" x="0" y="0" r="26" />
+					<g class="point colored fill" clip-path="url(#svg-clip)">
+						<circle x="0" y="0" r="34" />
+						<circle x="0" y="0" r="26" />
+					</g>
+				</g>
+			<% } %>
+		</svg>
+	</section>
+
+	<nav class="menu">
+		<ul>
+			<% for (let map in maps) { %>
+				<li>
+					<a class="item map_<%= map %>" data-map="<%= map %>" data-groups="<%= maps[map].groups.join(',') %>">
+						<div class="title"><%= maps[map].title[lang] %></div>
+						<div class="subtitle"><%= maps[map].subtitle[lang] %></div>
+					</a>
+				</li>
+			<% } %>
+		</ul>
+	</nav>
+
+	<nav class="sidebar">
+		<section class="content">
+			<h1 class="headline">
+				<div class="title">Vysoké Tatry</div>
+				<div class="subtitle"></div>
+			</h1>
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+			</p>
+			<ul class="groups">
+				<% for (let group in groups) { %>
+					<li>
+						<a class="group grp_<%= group %>" data-group="<%= group %>">
+							<%= groups[group].title[lang] %>
+						</a>
+					</li>
+				<% } %>
+			</ul>
+			<ul class="pois">
+				<% for (let poi of pois) { %>
+					<li>
+						<a class="poi grp_<%= poi.group %>" data-poi="<%= poi.$loki %>" data-group="<%= poi.group %>" data-region="<%= poi.region %>">
+							<%= poi.title[lang] %>
+						</a>
+					</li>
+				<% } %>
+			</ul>
+		</section>
+
+		<section class="toolbar">
+			<ul class="actions">
+				<li><a class="icon home"></a></li>
+			</ul>
+			<ul class="actions">
+				<li><a class="selected">SLO</a></li>
+				<li><a>ENG</a></li>
+			</ul>
+		</section>
+	</nav>
+
+	<section class="detail _hidden">
+		<section class="titlebar">
+			<h1 class="headline"></h1>
+			<ul class="actions">
+				<li><a class="icon back"></a></li>
+				<li><a class="icon forward"></a></li>
+				<li><a class="icon close"></a></li>
+			</ul>
+		</section>
+		<section class="content">
+			<p class="description">
+			</p>
+			<!--
+			<div class="photo">
+
+			</div>
+			-->
+			<ul class="thumbnails">
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+			</ul>
+		</section>
+	</section>
+
+	<!--
+	<section class="panels">
+		<div class="panel tags" data-panel="tags">
+			<div class="bar titlebar">
+				<h3><%= locale.titles.tags %></h3>
+				<ul class="buttons">
+					<li><a class="close" data-panel="tags">Close</a></li>
+				</ul>
+			</div>
+			<ul class="content">
+				<li><a class="tag monument" data-tag="monument"><%= locale.tags.monument %></a></li>
+				<li><a class="tag castle" data-tag="castle"><%= locale.tags.castle %></a></li>
+				<li><a class="tag cave" data-tag="cave"><%= locale.tags.cave %></a></li>
+				<li><a class="tag mine" data-tag="mine"><%= locale.tags.mine %></a></li>
+				<li><a class="tag tourist" data-tag="tourist"><%= locale.tags.tourist %></a></li>
+				<li><a class="tag peak" data-tag="peak"><%= locale.tags.peak %></a></li>
+				<li><a class="tag water" data-tag="water"><%= locale.tags.water %></a></li>
+				<li><a class="tag spa" data-tag="spa"><%= locale.tags.spa %></a></li>
+				<li><a class="tag site" data-tag="site"><%= locale.tags.site %></a></li>
+				<li><a class="tag construction" data-tag="construction"><%= locale.tags.construction %></a></li>
+				<li><a class="tag summer" data-tag="summer"><%= locale.tags.summer %></a></li>
+				<li><a class="tag winter" data-tag="winter"><%= locale.tags.winter %></a></li>
+			</ul>
+		</div>
+
+		<div class="panel list" data-panel="list">
+			<div class="bar titlebar">
+				<h3><%= locale.titles.list %></h3>
+				<ul class="buttons">
+					<li><a class="close" data-panel="list">Close</a></li>
+				</ul>
+			</div>
+			<div class="wrapper">
+				<ul class="content">
+					<% for (let poi of pois) { %>
+						<li class="poi" data-poi="<%= poi.$loki %>">
+							<a>
+								<%= poi.title[lang] %>
+							</a>
+						</li>
+					<% } %>
+				</ul>
+			</div>
+		</div>
+
+		<div class="panel detail" data-panel="detail">
+			<div class="bar titlebar">
+				<h3></h3>
+				<ul class="buttons">
+					<li><a class="prev">Previous</a></li>
+					<li><a class="next">Next</a></li>
+					<li><a class="close" data-panel="detail">Close</a></li>
+				</ul>
+			</div>
+			<div class="content">
+				<section class="images">
+					<img />
+				</section>
+				<section class="text">
+					<p></p>
+				</section>
+			</div>
+		</div>
+	</section>
+
+	<nav class="bar toolbar">
+		<ul class="links language">
+			<% let selected = (lang == 'sk') ? { sk: 'selected' } : { en: 'selected' } %>
+			<li><a href="/lang/sk" class="slo <%= selected.sk %>">SLO</a></li>
+			<li><a href="/lang/en" class="eng <%= selected.en %>">ENG</a></li>
+		</ul>
+		<ul class="links triggers">
+			<li><a class="trigger" data-panel="tags"><%= locale.menu.tags %></a></li>
+			<li><a class="trigger" data-panel="list"><%= locale.menu.list %></a></li>
+		</ul>
+		<ul class="buttons">
+			<li><a class="minus">Zoom Out</a></li>
+			<li><a class="plus">Zoom In</a></li>
+			<li><a href="/" class="home">Home</a></li>
+		</ul>
+	</nav>
+	-->
+</body>
+</html>

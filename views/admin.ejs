@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Spiš v kocke - Admin</title>
+
+	<link rel="stylesheet" href="/styles/admin.css">
+
+	<script src="/scripts/jquery-3.2.0.min.js"></script>
+	<script src="/scripts/admin.js"></script>
+</head>
+<body>
+	<ul class="pois">
+		<li class="poi selected" data-id="">
+			<div class="empty">New Point</div>
+			<div class="actions">
+				<!-- <a class="create">Create</a> -->
+			</div>
+			<form id="form">
+				<input type="hidden" name="id">
+				<input type="text" placeholder="position left" name="position_left">
+				<input type="text" placeholder="position top" name="position_top">
+				<input type="text" placeholder="title sk" name="title_sk">
+				<input type="text" placeholder="title en" name="title_en">
+				<textarea placeholder="description sk" name="description_sk"></textarea>
+				<textarea placeholder="description en" name="description_en"></textarea>
+				<select name="group">
+					<% for (let group in groups) { %>
+						<option value="<%= group %>"><%= groups[group].title.sk %></option>
+					<% } %>
+				</select>
+
+				<% let regions = {
+					kh: 'Hornádska kotlina',
+					lv: 'Levočské vrchy',
+					nt: 'Nízke Tatry',
+					p: 'Pieniny',
+					sr: 'Slovenský raj',
+					sm: 'Spišská magura',
+					vt: 'Vysoké tatry'
+				}; %>
+				<select name="region">
+					<% for (let region in regions) { %>
+						<option value="<%= region %>"><%= regions[region] %></option>
+					<% } %>
+				</select>
+
+				<input type="text" placeholder="img prefix" name="prefix">
+				<button type="submit">Submit</button>
+			</form>
+		</li>
+		<% for (let poi of pois.slice(0).reverse()) { %>
+		    <li class="poi" data-id="<%= poi.$loki %>">
+				<ul>
+			    	<li class="position">
+						<span class="left"><%= poi.position.left %></span>
+						<span class="top"><%= poi.position.top %></span>
+					</li>
+					<li class="title">
+						<span class="sk"><%= poi.title.sk %></span>
+						<span class="en"><%= poi.title.en %></span>
+					</li>
+					<li class="description">
+						<span class="sk"><%= poi.description.sk %></span>
+						<span class="en"><%= poi.description.en %></span>
+					</li>
+					<li class="group">
+						<%= poi.group %>
+					</li>
+					<li class="region">
+						<%= regions[poi.region] %>
+					</li>
+					<li class="prefix">
+						<%= poi.prefix %>
+					</li>
+					<li class="actions">
+						<!-- <a class="update">Update</a> -->
+						<a class="delete">Delete</a>
+					</li>
+				</ul>
+		    </li>
+		<% } %>
+	</ul>
+</body>
+</html>

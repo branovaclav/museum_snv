@@ -1,0 +1,23 @@
+body {
+	background: lightyellow;
+}
+
+.pois {
+	list-style: none;
+}
+
+.poi {
+	padding: 10px;
+}
+
+.poi:not(:first-child) {
+	border-top: solid 1px gray;
+}
+
+.poi.selected {
+	background-color: pink;
+}
+
+a {
+	color: red;
+}

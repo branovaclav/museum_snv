@@ -1,0 +1,85 @@
+.menu {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: 100%;
+	height: 148px;
+
+	background-color: $panel-bkg-color;
+	box-shadow: 0 1px $shadow-color;
+
+	z-index: 2;
+
+	ul {
+		height: 100%;
+		padding: 0 76px;
+		display: flex;
+		align-items: stretch;
+
+		li {
+			flex-grow: 1;
+			margin: 0 4px;
+
+			&:last-child { flex-grow: 0; }
+		}
+	}
+
+	.item {
+		height: 100%;
+		text-transform: uppercase;
+		position: relative;
+
+		.title {
+			height: 96px;
+			padding: 54px 15px 0 70px;
+			font: $semibold 3.8rem/1 'Relish Pro';
+			box-sizing: border-box;
+
+			&.colored {
+				position: absolute;
+				width: 100%;
+				color: $panel-bkg-color;
+				clip-path: polygon(56px 0, 56px 96px, 56px 96px, 56px 0);
+				transition: opacity $fast, clip-path $fast;
+				background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="128" height="96"><rect x="0" y="0" width="128" height="96" fill="rgba(255,255,255,.5)" /></svg>');
+			}
+		}
+
+		.subtitle {
+			height: 42px;
+			font: $condensed 2.2rem/2.2 'Relish Pro';
+			color: $light-text-color;
+			letter-spacing: 0.05rem;
+			white-space: nowrap;
+		}
+
+		&::before,
+		&::after {
+			content: '';
+			position: absolute;
+			width: 56px;
+			height: 96px;
+		}
+
+		&::after {
+			opacity: 0;
+			clip-path: polygon(0 0, 0 10px, 26px 10px, 56px 10px, 56px 0);
+			transition: clip-path $fast;
+		}
+	}
+
+	.item:active,
+	.item.selected {
+		&::after {
+			opacity: 1;
+			clip-path: polygon(0 0, 0 10px, 28px 26px, 56px 10px, 56px 0);
+		}
+	}
+
+	.item:active {
+		.colored {
+			clip-path: polygon(56px 0, 56px 96px, 100% 96px, 100% 0);
+		}
+	}
+}

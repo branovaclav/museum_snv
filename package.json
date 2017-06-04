@@ -1,0 +1,24 @@
+{
+  "name": "museum_snv",
+  "version": "1.0.0",
+  "description": "Spiš v kocke",
+  "main": "app.js",
+  "scripts": {
+	"dev": "concurrently --kill-others \"npm run serve\" \"npm run sass\"",
+    "serve": "nodemon server.js",
+    "sass": "node-sass -w styles/ -o styles/"
+  },
+  "author": "Branislav Václav",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "lokijs": "^1.4.3"
+  },
+  "devDependencies": {
+    "concurrently": "^3.4.0",
+    "node-sass": "^4.5.0",
+    "nodemon": "^1.11.0"
+  }
+}

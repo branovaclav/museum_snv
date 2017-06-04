@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31 600" width="31" height="600">
+	<g fill="white">
+		<g transform="translate(0 0)">
+			<path id="home" d="M8,9 L23,9 L23,24 L8,24 L8,9 Z M1,2 L1,31 L30,31 L30,2 L1,2 Z" />
+		</g>
+		<g transform="translate(0 100)">
+			<polygon id="prev" points="13.5 16.5 25 28 20 33 3.5 16.5 20 0 25 5" />
+		</g>
+		<g transform="translate(0 200)">
+            <polygon id="next" points="18 16.5 6 28 11 33 27.5 16.5 11 0 6 5" />
+		</g>
+		<g transform="translate(0 300)">
+			<polygon id="close" points="10.5 16.5 1 26 6 31 15.5 21.5 25 31 30 26 20.5 16.5 30 7 25 2 15.5 11.5 6 2 1 7" />
+		</g>
+		<g transform="translate(0 400)">
+			<polygon id="plus" points="12 13 0 13 0 20 12 20 12 32 19 32 19 20 31 20 31 13 19 13 19 1 12 1 12 13" />
+		</g>
+		<g transform="translate(0 500)">
+			<rect id="minus" x="0" y="13" width="31" height="7" />
+		</g>
+	</g>
+</svg>
