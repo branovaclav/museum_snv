@@ -38,22 +38,6 @@ $accent-color-green: rgb(167, 207, 122);
 $accent-color-blue: rgb(130, 198, 231);
 $accent-color-brown: rgb(194, 171, 171);
 
-/* pois */
-/*
-$poi-red-color: rgb(228, 0, 0);
-$poi-orange-color: rgb(241, 124, 0);
-$poi-lightbrown-color: rgb(178, 167, 127);
-$poi-brown-color: rgb(115, 102, 99);
-$poi-lightgreen-color: rgb(111, 181, 5);
-$poi-green-color: rgb(0, 120, 84);
-$poi-blue-color: rgb(58, 121, 184);
-$poi-lightblue-color: rgb(128, 181, 215);
-$poi-purple-color: rgb(168, 18, 130);
-$poi-violet-color: rgb(94, 57, 195);
-$poi-yellow-color: rgb(200, 160, 0);
-$poi-yellowgreen-color: rgb(167, 176, 88);
-*/
-
 /* --- Base --- */
 html {
 	font-size: 62.5%; /* maps '1rem' to '10px' */
@@ -106,4 +90,5 @@ img {
 
 /* --- Transitions --- */
 $fast: .12s;
+$medium: .33s;
 $slow: .8s;

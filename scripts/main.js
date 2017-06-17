@@ -1,6 +1,13 @@
+const imgpath = '/data/images';
+const thumbpath = '/data/images/thumbnails';
+
 let Component = class {
 	constructor () {
 		Component[ this.constructor.name.toLowerCase() ] = this;
+	}
+
+	toggle (state) {
+		this.el.panel.toggleClass('hidden', !state);
 	}
 };
 
@@ -9,6 +16,7 @@ let Menu = class extends Component {
 		super();
 
 		this.el = {
+			panel: $('.menu'),
 			items: $('.menu .item')
 		};
 
@@ -76,6 +84,7 @@ let Groups = class extends Component {
 	toggle (group) {
 		this.el.groups.filter(`[data-group=${ group }]`).toggleClass('inactive');
 		Component.points.filter(this.groups(), 'vt');
+		Component.detail.check();
 	}
 };
 
@@ -118,27 +127,37 @@ let Detail = class extends Component {
 			panel: $('.detail'),
 			headline: $('.detail .headline'),
 			description: $('.detail .description'),
-			// images
 			actions: {
-				prev: $('.detail .actions .back'),
-				next: $('.detail .actions .forward'),
-				close: $('.detail .actions .close')
+				prev: $('.detail .titlebar .actions .back'),
+				next: $('.detail .titlebar .actions .forward'),
+				close: $('.detail .titlebar .actions .close')
 			}
 		};
 
 		this.el.actions.prev.add(this.el.actions.next).on('click', evt => $(evt.target).is('.disabled') ? null : this.navigate( $(evt.target).is(this.el.actions.prev) ? 0 : 1 ) );
-		this.el.actions.close.on('click', () => Component.points.select());
+		this.el.actions.close.on('click', () => this.el.panel.hasClass('maximized') ? this.maximize(false) : Component.points.select());
+	}
+
+	maximize (state) {
+		this.el.panel.toggleClass('maximized', state);
+		Component.menu.toggle(!state);
+		Component.sidebar.toggle(!state);
+		if (!state)
+			Component.viewer.image();
 	}
 
 	select (poi) {
-		this.el.panel.toggleClass('hidden', poi == undefined);
+		this.toggle(poi != undefined);
 		if (poi == undefined)
 			return;
 
 		this.el.headline.attr({ 'class': `headline grp_${ data[poi].group }`}).text( data[poi].title );
 		this.el.description.text( data[poi].description );
-		// panel.find('img').attr({ src: `/data/images/${ data[id].images[0] }` }); //FIXME
+		Component.viewer.select(poi, this.el.panel.is('.maximized'));
+		this.check();
+	}
 
+	check () {
 		$([0, 1]).each(i => this.el.actions[ ['prev', 'next'][i] ].toggleClass('disabled', Component.points.next(i) == undefined));
 	}
 
@@ -147,6 +166,59 @@ let Detail = class extends Component {
 	}
 };
 
+let Viewer = class extends Component {
+	constructor () {
+		super();
+
+		this.el = {
+			images: $('.detail .photo .images'),
+			thumbnails: $('.detail .thumbnails'),
+			actions: {
+				prev: $('.detail .photo .actions .back'),
+				next: $('.detail .photo .actions .forward')
+			}
+		};
+
+		this.el.thumbnails.on('click', 'a', evt => this.image( $(evt.target).closest('[data-file]').data('file') ));
+		this.el.actions.prev.add(this.el.actions.next).on('click', evt => $(evt.target).is('.disabled') ? null : this.navigate( $(evt.target).is(this.el.actions.prev) ? 0 : 1 ) );
+	}
+
+	select (poi, image) {
+		$(data[poi].files.map(file => `<li><a data-file="${ file }"><img src="${ thumbpath }/${ file }" /></a></li>`).join('')).appendTo(this.el.thumbnails.empty());
+		if (image)
+			this.image(this.el.thumbnails.find('[data-file]').data('file'));
+	}
+
+	image (file) {
+		this.el.thumbnails.find('a').removeClass('selected').filter(`[data-file="${ file }"]`).addClass('selected');
+		if (file == undefined) {
+			this.el.images.empty();
+			return;
+		}
+
+		window.setTimeout(() => {
+			let existing = this.el.images.find('li').addClass('fadeout');
+			let current = $(`<li class="fadein"><img src="${ imgpath }/${ file }" /></li>`).appendTo(this.el.images);
+			window.setTimeout(() => existing.remove(), .33 * 1000);
+		}, this.el.images.closest('.maximized').length ? 0 : .33 * 1000);
+		Component.detail.maximize(true);
+		this.check();
+	}
+
+	navigate (direction) {
+		this.image(this.next(direction));
+	}
+
+	next (direction) {
+		return this.el.thumbnails.find('.selected').parent()[ ['prev', 'next'][direction] ]().find('[data-file]').data('file');
+	}
+
+	check () {
+		$([0, 1]).each(i => this.el.actions[ ['prev', 'next'][i] ].toggleClass('disabled', this.next(i) == undefined));
+	}
+};
+
+
 $(window).on('load', () => {
 	new Menu();
 	new Sidebar();
@@ -154,6 +226,7 @@ $(window).on('load', () => {
 	new Groups();
 	new Points();
 	new Detail();
+	new Viewer();
 
 	$('.menu .item').first().click();
 	// $(document).on('contextmenu', event => event.preventDefault());

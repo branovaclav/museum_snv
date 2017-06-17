@@ -1,5 +1,5 @@
 .menu {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 
@@ -8,6 +8,7 @@
 
 	background-color: $panel-bkg-color;
 	box-shadow: 0 1px $shadow-color;
+	transition: transform $medium;
 
 	z-index: 2;
 
@@ -82,4 +83,8 @@
 			clip-path: polygon(56px 0, 56px 96px, 100% 96px, 100% 0);
 		}
 	}
+}
+
+.menu.hidden {
+	transform: translate(0, calc(-100% - 16px));
 }

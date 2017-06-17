@@ -38,7 +38,7 @@ $(window).on('load', () => {
 			},
 			group: fields.group.value,
 			region: fields.region.value,
-			prefix: fields.prefix.value
+			folder: fields.folder.value
 		};
 	};
 

@@ -1,90 +1,147 @@
 .detail {
-	position: absolute;
+	position: fixed;
 	left: 25px;
 	bottom: 25px;
-
 	width: calc(100% - 586px - 2 * 25px);
-	max-height: calc(100% - 148px - 2 * 25px);
 
 	background-color: $panel-bkg-color;
+	// backdrop-filter: blur(10px); FIXME
+
 	box-shadow: 0 0 0 1px $shadow-color;
-	transition: transform $fast;
+	transition: transform $medium, width $medium;
 
 	.titlebar {
-		padding: 25px 25px 0 40px;
 		display: flex;
 		justify-content: space-between;
-
-		.headline {
-			height: 56px;
-			padding-left: 68px;
-			text-transform: uppercase;
-			position: relative;
-
-			font: $semibold 3.6rem/1.8 'Relish Pro';
-
-			&::before,
-			&::after {
-				content: '';
-				position: absolute;
-				border-radius: 50%;
-			}
-
-			&::before {
-				top: 0;
-				left: 0;
-				width: 56px;
-				height: 56px;
-				transition: transform $fast;
-				border: solid 8px rgba(white, .5);
-				box-sizing: border-box;
-			}
-
-			&::after {
-				top: 16px;
-				left: 16px;
-				width: 24px;
-				height: 24px;
-				background-color: $panel-bkg-color;
-			}
-		}
+		margin: 25px;
+		margin-left: 40px;
 	}
 
 	.content {
-		padding: 24px 40px;
+		margin: 40px;
+		margin-top: 0;
+	}
+}
 
-		p {
-			margin-bottom: 24px;
-			column-count: 3;
-			column-gap: 50px;
-			text-align: justify;
+.detail .titlebar {
+	.headline {
+		height: 56px;
+		padding-left: 68px;
+		text-transform: uppercase;
+		position: relative;
+
+		font: $semibold 3.6rem/1.8 'Relish Pro';
+
+		&::before,
+		&::after {
+			content: '';
+			position: absolute;
+			border-radius: 50%;
 		}
 
-		.thumbnails {
-			display: flex;
-			overflow-x: hidden; //auto;
+		&::before {
+			top: 0;
+			left: 0;
+			width: 56px;
+			height: 56px;
+			transition: transform $fast;
+			border: solid 8px rgba(white, .5);
+			box-sizing: border-box;
+		}
 
-			li:not(:first-child) {
-				margin-left: 8px;
-			}
+		&::after {
+			top: 16px;
+			left: 16px;
+			width: 24px;
+			height: 24px;
+			background-color: $panel-bkg-color;
+		}
+	}
+}
 
-			a {
-				width: 174px;
-				height: 116px;
-				background-color: pink;
+.detail .content {
+	p {
+		column-count: 3;
+		column-gap: 50px;
+		text-align: justify;
+		max-height: 192px;
+		transition: max-height $medium;
+		overflow: hidden;
+	}
+
+	.photo {
+		width: 100%;
+		height: 0;
+
+		transition: height $medium;
+		overflow: hidden;
+		position: relative;
+
+		.images {
+			li {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+
+				animation-duration: $medium;
+				animation-fill-mode: forwards;
+				will-change: transform, opacity;
+
+				img {
+					height: 100%;
+					margin: auto;
+				}
+
+				&.fadein { animation-name: fadein; }
+				&.fadeout { animation-name: fadeout; }
+
+				@keyframes fadein {
+				  from { opacity: 0; }
+				  to { opacity: 1; }
+				}
+
+				@keyframes fadeout {
+				  from { opacity: 1; }
+				  to { opacity: 0; }
+				}
 			}
 		}
 
-		.photo {
-			width: 100%;
-			height: 752px;
-			margin-bottom: 24px;
-			background-color: blue;
+		.actions {
+			position: absolute;
+			background-color: pink;
+			z-index: 1;
+		}
+	}
+
+	.thumbnails {
+		display: flex;
+		overflow-x: auto;
+		margin-top: 25px;
+
+		li:not(:first-child) {
+			margin-left: 8px;
+		}
+
+		.selected {
+			border: solid 2px red;
+		}
+
+		img {
+			height: 116px;
 		}
 	}
 }
 
 .detail.hidden {
-	transform: translate(0, 400px);
+	transform: translate(0, calc(100% + 26px));
+}
 
+.detail.maximized {
+	width: calc(100vw - 2 * 25px);
+
+	.content {
+		p { max-height: 0; }
+		.photo { height: calc(100vh - (2 * 25px) - 106px - 25px - 116px - 40px); }
+	}
 }

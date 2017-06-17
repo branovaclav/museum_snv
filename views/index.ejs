@@ -20,7 +20,7 @@
 					description: '<%- poi.description[lang] %>',
 					group:  '<%- poi.group %>',
 					region: '<%- poi.region %>',
-					prefix: '<%- poi.prefix %>'
+					files: [<%- poi.files.map(file => `'${ file }'`).join(', ') %>]
 				},
 			<% } %>
 		};
@@ -102,7 +102,7 @@
 		</section>
 	</nav>
 
-	<section class="detail _hidden">
+	<section class="detail hidden">
 		<section class="titlebar">
 			<h1 class="headline"></h1>
 			<ul class="actions">
@@ -112,27 +112,15 @@
 			</ul>
 		</section>
 		<section class="content">
-			<p class="description">
-			</p>
-			<!--
+			<p class="description"></p>
 			<div class="photo">
-
+				<ul class="actions">
+					<li><a class="icon back">Previous</a></li>
+					<li><a class="icon forward">Next</a></li>
+				</ul>
+				<ul class="images"></ul>
 			</div>
-			-->
-			<ul class="thumbnails">
-				<li><a></a></li>
-				<li><a></a></li>
-				<li><a></a></li>
-				<li><a></a></li>
-				<li><a></a></li>
-				<li><a></a></li>
-				<li><a></a></li>
-				<li><a></a></li>
-				<li><a></a></li>
-				<li><a></a></li>
-				<li><a></a></li>
-				<li><a></a></li>
-			</ul>
+			<ul class="thumbnails"></ul>
 		</section>
 	</section>
 

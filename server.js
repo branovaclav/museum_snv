@@ -1,13 +1,17 @@
 const express = require('express');
 const parser = require('body-parser');
 const loki = require('lokijs');
+const fs = require('fs');
+const path = require('path')
 const locales = require('./locales');
 const constants = require('./data/const');
 
 const app = express();
 const host = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || 3000;
+
 const root = __dirname;
+const imgpath = path.join(root, 'data', 'images');
 
 let lang = 'sk';
 let pois = {};
@@ -27,6 +31,10 @@ const db = new loki('data/db.js', {
 				sorted: collection.chain().sort(abcsort).data()
 			}
 		};
+		collection.data.forEach(poi => {
+			try { poi.files = fs.readdirSync(path.join(imgpath, poi.folder)).filter(file => fs.lstatSync(path.join(imgpath, poi.folder, file)).isFile()).map(file => path.join(poi.folder, file)); }
+			catch (err) { poi.files = []; }
+		});
 	}
 });
 
@@ -87,7 +95,7 @@ app.get('/seed', (req, res) => {
 			description: { sk: 'Popis 1', en: 'Description 2'},
 			group: 'flora',
 			region: 'vt',
-			prefix: 'vt_001'
+			folder: 'vt_001'
 		},
 		{
 			position: { left: 600, top: 600 },
@@ -95,7 +103,7 @@ app.get('/seed', (req, res) => {
 			description: { sk: 'Popis 2', en: 'Description 2'},
 			group: 'fauna',
 			region: 'nt',
-			prefix: 'nt_001'
+			folder: 'nt_001'
 		}
 	]);
 	db.saveDatabase('db');

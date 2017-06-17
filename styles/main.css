@@ -34,21 +34,6 @@
 /* components */
 /* text */
 /* accents */
-/* pois */
-/*
-$poi-red-color: rgb(228, 0, 0);
-$poi-orange-color: rgb(241, 124, 0);
-$poi-lightbrown-color: rgb(178, 167, 127);
-$poi-brown-color: rgb(115, 102, 99);
-$poi-lightgreen-color: rgb(111, 181, 5);
-$poi-green-color: rgb(0, 120, 84);
-$poi-blue-color: rgb(58, 121, 184);
-$poi-lightblue-color: rgb(128, 181, 215);
-$poi-purple-color: rgb(168, 18, 130);
-$poi-violet-color: rgb(94, 57, 195);
-$poi-yellow-color: rgb(200, 160, 0);
-$poi-yellowgreen-color: rgb(167, 176, 88);
-*/
 /* --- Base --- */
 html {
   font-size: 62.5%;
@@ -298,13 +283,14 @@ img {
   transform: scale(0); }
 
 .menu {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 148px;
   background-color: white;
   box-shadow: 0 1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.33s;
   z-index: 2; }
 
 .menu ul {
@@ -365,14 +351,18 @@ img {
 .menu .item:active .colored {
   clip-path: polygon(56px 0, 56px 96px, 100% 96px, 100% 0); }
 
+.menu.hidden {
+  transform: translate(0, calc(-100% - 16px)); }
+
 .sidebar {
-  position: absolute;
+  position: fixed;
   top: 148px;
   right: 0;
   width: 586px;
   height: calc(100% - 148px);
   background-color: white;
   box-shadow: -1px 0 rgba(0, 0, 0, 0.1);
+  transition: transform 0.33s;
   z-index: 1; }
 
 .sidebar .content {
@@ -499,20 +489,27 @@ img {
   margin-bottom: 0;
   overflow: hidden; }
 
+.sidebar.hidden {
+  transform: translate(100%, 0); }
+
 .detail {
-  position: absolute;
+  position: fixed;
   left: 25px;
   bottom: 25px;
   width: calc(100% - 586px - 2 * 25px);
-  max-height: calc(100% - 148px - 2 * 25px);
   background-color: white;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
-  transition: transform 0.12s; }
+  transition: transform 0.33s, width 0.33s; }
 
 .detail .titlebar {
-  padding: 25px 25px 0 40px;
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  margin: 25px;
+  margin-left: 40px; }
+
+.detail .content {
+  margin: 40px;
+  margin-top: 0; }
 
 .detail .titlebar .headline {
   height: 56px;
@@ -542,32 +539,78 @@ img {
   height: 24px;
   background-color: white; }
 
-.detail .content {
-  padding: 24px 40px; }
-
 .detail .content p {
-  margin-bottom: 24px;
   column-count: 3;
   column-gap: 50px;
-  text-align: justify; }
+  text-align: justify;
+  max-height: 192px;
+  transition: max-height 0.33s;
+  overflow: hidden; }
+
+.detail .content .photo {
+  width: 100%;
+  height: 0;
+  transition: height 0.33s;
+  overflow: hidden;
+  position: relative; }
+
+.detail .content .photo .images li {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation-duration: 0.33s;
+  animation-fill-mode: forwards;
+  will-change: transform, opacity; }
+
+.detail .content .photo .images li img {
+  height: 100%;
+  margin: auto; }
+
+.detail .content .photo .images li.fadein {
+  animation-name: fadein; }
+
+.detail .content .photo .images li.fadeout {
+  animation-name: fadeout; }
+
+@keyframes fadein {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+@keyframes fadeout {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+
+.detail .content .photo .actions {
+  position: absolute;
+  background-color: pink;
+  z-index: 1; }
 
 .detail .content .thumbnails {
   display: flex;
-  overflow-x: hidden; }
+  overflow-x: auto;
+  margin-top: 25px; }
 
 .detail .content .thumbnails li:not(:first-child) {
   margin-left: 8px; }
 
-.detail .content .thumbnails a {
-  width: 174px;
-  height: 116px;
-  background-color: pink; }
+.detail .content .thumbnails .selected {
+  border: solid 2px red; }
 
-.detail .content .photo {
-  width: 100%;
-  height: 752px;
-  margin-bottom: 24px;
-  background-color: blue; }
+.detail .content .thumbnails img {
+  height: 116px; }
 
 .detail.hidden {
-  transform: translate(0, 400px); }
+  transform: translate(0, calc(100% + 26px)); }
+
+.detail.maximized {
+  width: calc(100vw - 2 * 25px); }
+
+.detail.maximized .content p {
+  max-height: 0; }
+
+.detail.maximized .content .photo {
+  height: calc(100vh - (2 * 25px) - 106px - 25px - 116px - 40px); }
