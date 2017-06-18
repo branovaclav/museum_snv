@@ -18,6 +18,7 @@
 
 		&.disabled {
 			opacity: .2;
+			cursor: default;
 		}
 	}
 
@@ -31,7 +32,7 @@
 		&.back { background-position: 0 -120px; }
 		&.forward { background-position: 0 -180px; }
 
-		&:active { background-color: rgb(252, 236, 224); }
+		&:active { background-color: rgba($accent-color-yellow, .25); }
 	}
 }
 

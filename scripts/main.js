@@ -174,8 +174,8 @@ let Viewer = class extends Component {
 			images: $('.detail .photo .images'),
 			thumbnails: $('.detail .thumbnails'),
 			actions: {
-				prev: $('.detail .photo .actions .back'),
-				next: $('.detail .photo .actions .forward')
+				prev: $('.detail .photo .actions a.back'),
+				next: $('.detail .photo .actions a.forward')
 			}
 		};
 

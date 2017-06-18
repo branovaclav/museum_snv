@@ -96,7 +96,8 @@ img {
   font: 600 2.6rem/1.33 "Relish Pro"; }
 
 .actions a.disabled {
-  opacity: .2; }
+  opacity: .2;
+  cursor: default; }
 
 .actions .icon {
   background: url("/images/icons_act.svg") no-repeat;
@@ -116,7 +117,7 @@ img {
   background-position: 0 -180px; }
 
 .actions .icon:active {
-  background-color: #fcece0; }
+  background-color: rgba(243, 178, 126, 0.25); }
 
 /* --- Colors --- */
 .map_regions .colored {
@@ -362,7 +363,7 @@ img {
   height: calc(100% - 148px);
   background-color: white;
   box-shadow: -1px 0 rgba(0, 0, 0, 0.1);
-  transition: transform 0.33s;
+  transition: top 0.33s, height 0.33s, transform 0.33s;
   z-index: 1; }
 
 .sidebar .content {
@@ -490,6 +491,8 @@ img {
   overflow: hidden; }
 
 .sidebar.hidden {
+  top: 0;
+  height: 100%;
   transform: translate(100%, 0); }
 
 .detail {
@@ -586,19 +589,55 @@ img {
 
 .detail .content .photo .actions {
   position: absolute;
-  background-color: pink;
-  z-index: 1; }
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch; }
+
+.detail .content .photo .actions > * {
+  width: 40%; }
+
+.detail .content .photo .actions > * a {
+  height: 100%;
+  padding: 25px;
+  display: flex;
+  align-items: center; }
+
+.detail .content .photo .actions > * a .icon {
+  width: 56px;
+  height: 56px;
+  padding: 14px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.33); }
+
+.detail .content .photo .actions > * a.forward {
+  flex-direction: row-reverse; }
+
+.detail .content .photo .actions > * a:active .icon {
+  background-color: rgba(243, 178, 126, 0.25); }
 
 .detail .content .thumbnails {
   display: flex;
+  justify-content: center;
   overflow-x: auto;
   margin-top: 25px; }
 
 .detail .content .thumbnails li:not(:first-child) {
   margin-left: 8px; }
 
-.detail .content .thumbnails .selected {
-  border: solid 2px red; }
+.detail .content .thumbnails a {
+  transition: opacity 0.12s, transform 0.12s; }
+
+.detail .content .thumbnails a:active {
+  transform: scale(0.94);
+  transform-origin: center; }
+
+.detail .content .thumbnails a.selected {
+  opacity: .33; }
 
 .detail .content .thumbnails img {
   height: 116px; }
