@@ -138,7 +138,7 @@
 					}
 
 					&.forward { flex-direction: row-reverse; }
-					&:active {
+					&:not(.disabled):active {
 						.icon {
 							background-color: rgba($accent-color-yellow, .25);
 						}

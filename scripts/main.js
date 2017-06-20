@@ -50,15 +50,53 @@ let Sidebar = class extends Component {
 let Map = class extends Component {
 	constructor () {
 		super();
+		let padding = 30; //viewport padding
 
 		this.el = {
-			map: $('.map')
+			panel: $('.map'),
+			maps: $('.maps')
 		};
+
+		this.el.maps.children().on('click', evt => this.zoom( $(evt.target) ));
+
+		this.map = { x: this.el.panel.position().left, y: this.el.panel.position().top, width: this.el.panel.width(), height: this.el.panel.height() };
+		this.viewport = { x: 0 + padding, y: 149 + padding, width: $(window).width() - 586 - 2 * padding, height: $(window).height() - 148 - 2 * padding };
+
+		this.initial = {
+			left: this.map.x - this.viewport.x - (this.viewport.width - this.map.width) / 2,
+			top: this.map.y - this.viewport.y - (this.viewport.height - this.map.height) / 2
+		};
+		window.setTimeout(() => { window.scrollTo(this.initial.left, this.initial.top); }, 1);
+
+		$('#back').on('click', () => this.zoom());
 	}
 
 	select (map) {
-		this.el.map.attr({ 'data-map': map });
+		this.el.maps.attr({ 'data-map': map });
 	}
+
+	zoom (obj) {
+		if (obj == undefined) {
+			this.el.panel.css({ transform: 'none' });
+			$('body').animate({ scrollLeft: this.initial.left, scrollTop: this.initial.top }, .8 * 1000);
+			return;
+		}
+
+		let	box = obj.get(0).getBBox();
+		let scale = Math.min(this.viewport.width / box.width, this.viewport.height / box.height);
+		let pos = {
+			left: obj.offset().left + (1 - scale) * box.width / 2 - this.viewport.x - (this.viewport.width - box.width * scale) / 2,
+			top: obj.offset().top + (1 - scale) * box.height / 2 - this.viewport.y - (this.viewport.height - box.height * scale) / 2
+		};
+
+		this.el.panel.css({ 'transform-origin': `${ (box.x + box.width / 2) / this.map.width * 100 }% ${ (box.y + box.height / 2) / this.map.height * 100 }%` });
+		this.el.panel.css({ transform: `scale(${ scale })` });
+		$('body').animate({ scrollTop: pos.top, scrollLeft: pos.left }, .8 * 1000);
+	}
+
+
+
+
 };
 
 let Groups = class extends Component {
@@ -180,7 +218,7 @@ let Viewer = class extends Component {
 		};
 
 		this.el.thumbnails.on('click', 'a', evt => this.image( $(evt.target).closest('[data-file]').data('file') ));
-		this.el.actions.prev.add(this.el.actions.next).on('click', evt => $(evt.target).is('.disabled') ? null : this.navigate( $(evt.target).is(this.el.actions.prev) ? 0 : 1 ) );
+		this.el.actions.prev.add(this.el.actions.next).on('click', evt => $(evt.target).closest('a').is('.disabled') ? null : this.navigate( $(evt.target).closest('a').is(this.el.actions.prev) ? 0 : 1 ) );
 	}
 
 	select (poi, image) {

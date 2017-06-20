@@ -39,11 +39,13 @@ html {
   font-size: 62.5%;
   /* maps '1rem' to '10px' */
   background: #fafafa url(/images/bkg.png);
-  width: 100%;
-  height: 100%;
+  width: 200%;
+  height: 200%;
   position: relative; }
 
 body {
+  width: 100%;
+  height: 100%;
   margin: 0;
   color: black;
   font-family: "Proxima Nova";
@@ -54,7 +56,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -webkit-overflow-scrolling: auto;
   -webkit-user-drag: none;
-  -webkit-tap-highlight-color: transparent; }
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
 
 body.lock {
   overflow: hidden; }
@@ -238,50 +243,55 @@ img {
     opacity: 0; } }
 
 .map {
-  width: 800px;
-  height: 800px;
-  position: relative; }
+  width: 1214px;
+  height: 700px;
+  position: relative;
+  transition: transform 0.8s;
+  transition-timing-function: linear; }
 
-.map .pois {
+.map svg {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%; }
 
-.map .pois .poi {
+.map svg .pois .poi {
   cursor: pointer; }
 
-.map .pois .poi > * {
+.map svg .pois .poi > * {
   transition: transform 0.12s; }
 
-.map .pois .poi .bkg {
+.map svg .pois .poi .bkg {
   fill: rgba(255, 255, 255, 0.5); }
 
-.map .pois .poi .beacon {
+.map svg .pois .poi .beacon {
   display: none;
   fill: none;
   stroke-width: 16px; }
 
-.map .pois .poi .point :first-child {
+.map svg .pois .poi .point :first-child {
   opacity: .5; }
 
-.map .pois .poi .point :last-child {
+.map svg .pois .poi .point :last-child {
   transition: transform 0.12s; }
 
-.map .pois .poi:active .point :last-child,
-.map .pois .poi.selected .point :last-child {
+.map svg .pois .poi:active .point :last-child,
+.map svg .pois .poi.selected .point :last-child {
   transform: scale(1.33); }
 
-.map .pois .poi.selected .beacon {
+.map svg .pois .poi.selected .beacon {
   display: block;
   animation: pulse 0.8s linear infinite; }
 
-.map .pois .poi.hidden {
+.map svg .pois .poi.hidden {
   pointer-events: none; }
 
-.map .pois .poi.hidden > * {
+.map svg .pois .poi.hidden > * {
   transform: scale(0); }
+
+.canvas {
+  padding: 1000px; }
 
 .menu {
   position: fixed;
@@ -617,7 +627,7 @@ img {
 .detail .content .photo .actions > * a.forward {
   flex-direction: row-reverse; }
 
-.detail .content .photo .actions > * a:active .icon {
+.detail .content .photo .actions > * a:not(.disabled):active .icon {
   background-color: rgba(243, 178, 126, 0.25); }
 
 .detail .content .thumbnails {
