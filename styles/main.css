@@ -1,8 +1,8 @@
 /* --- Fonts --- */
 @font-face {
   font-family: 'Proxima Nova';
-  font-weight: 400;
-  src: url("/fonts/proxima-nova_regular.otf"); }
+  font-weight: 700;
+  src: url("/fonts/proxima-nova_bold.otf"); }
 
 @font-face {
   font-family: 'Proxima Nova';
@@ -11,8 +11,13 @@
 
 @font-face {
   font-family: 'Proxima Nova';
-  font-weight: 700;
-  src: url("/fonts/proxima-nova_bold.otf"); }
+  font-weight: 400;
+  src: url("/fonts/proxima-nova_regular.otf"); }
+
+@font-face {
+  font-family: 'Proxima Nova';
+  font-weight: 200;
+  src: url("/fonts/proxima-nova_condensed-light.otf"); }
 
 @font-face {
   font-family: 'Relish Pro';
@@ -125,112 +130,89 @@ img {
   background-color: rgba(243, 178, 126, 0.25); }
 
 /* --- Colors --- */
-.map_regions .colored {
+[data-map="fauna"] .colored,
+[data-group="fauna"] .colored {
   background-color: #ed826a; }
 
-.map_regions .colored.fill {
+[data-map="fauna"] .colored.fill,
+[data-group="fauna"] .colored.fill {
   fill: #ed826a; }
 
-.map_regions .colored.stroke {
+[data-map="fauna"] .colored.stroke,
+[data-group="fauna"] .colored.stroke {
   stroke: #ed826a; }
 
-.map_regions::before, .map_regions::after {
+[data-map="fauna"]::before, [data-map="fauna"]::after,
+[data-group="fauna"]::before,
+[data-group="fauna"]::after {
   background-color: #ed826a; }
 
-.map_landscape .colored {
+[data-map="flora"] .colored,
+[data-group="flora"] .colored {
   background-color: #f3b27e; }
 
-.map_landscape .colored.fill {
+[data-map="flora"] .colored.fill,
+[data-group="flora"] .colored.fill {
   fill: #f3b27e; }
 
-.map_landscape .colored.stroke {
+[data-map="flora"] .colored.stroke,
+[data-group="flora"] .colored.stroke {
   stroke: #f3b27e; }
 
-.map_landscape::before, .map_landscape::after {
+[data-map="flora"]::before, [data-map="flora"]::after,
+[data-group="flora"]::before,
+[data-group="flora"]::after {
   background-color: #f3b27e; }
 
-.map_reserves .colored {
+[data-map="reserves"] .colored,
+[data-group="reserves"] .colored {
   background-color: #a7cf7a; }
 
-.map_reserves .colored.fill {
+[data-map="reserves"] .colored.fill,
+[data-group="reserves"] .colored.fill {
   fill: #a7cf7a; }
 
-.map_reserves .colored.stroke {
+[data-map="reserves"] .colored.stroke,
+[data-group="reserves"] .colored.stroke {
   stroke: #a7cf7a; }
 
-.map_reserves::before, .map_reserves::after {
+[data-map="reserves"]::before, [data-map="reserves"]::after,
+[data-group="reserves"]::before,
+[data-group="reserves"]::after {
   background-color: #a7cf7a; }
 
-.map_waters .colored {
+[data-map="waters"] .colored,
+[data-group="waters"] .colored {
   background-color: #82c6e7; }
 
-.map_waters .colored.fill {
+[data-map="waters"] .colored.fill,
+[data-group="waters"] .colored.fill {
   fill: #82c6e7; }
 
-.map_waters .colored.stroke {
+[data-map="waters"] .colored.stroke,
+[data-group="waters"] .colored.stroke {
   stroke: #82c6e7; }
 
-.map_waters::before, .map_waters::after {
+[data-map="waters"]::before, [data-map="waters"]::after,
+[data-group="waters"]::before,
+[data-group="waters"]::after {
   background-color: #82c6e7; }
 
-.map_geology .colored {
+[data-map="geology"] .colored,
+[data-group="geology"] .colored {
   background-color: #c2abab; }
 
-.map_geology .colored.fill {
+[data-map="geology"] .colored.fill,
+[data-group="geology"] .colored.fill {
   fill: #c2abab; }
 
-.map_geology .colored.stroke {
+[data-map="geology"] .colored.stroke,
+[data-group="geology"] .colored.stroke {
   stroke: #c2abab; }
 
-.map_geology::before, .map_geology::after {
-  background-color: #c2abab; }
-
-.grp_flora .colored {
-  background-color: #a7cf7a; }
-
-.grp_flora .colored.fill {
-  fill: #a7cf7a; }
-
-.grp_flora .colored.stroke {
-  stroke: #a7cf7a; }
-
-.grp_flora::before, .grp_flora::after {
-  background-color: #a7cf7a; }
-
-.grp_fauna .colored {
-  background-color: #ed826a; }
-
-.grp_fauna .colored.fill {
-  fill: #ed826a; }
-
-.grp_fauna .colored.stroke {
-  stroke: #ed826a; }
-
-.grp_fauna::before, .grp_fauna::after {
-  background-color: #ed826a; }
-
-.grp_waters .colored {
-  background-color: #82c6e7; }
-
-.grp_waters .colored.fill {
-  fill: #82c6e7; }
-
-.grp_waters .colored.stroke {
-  stroke: #82c6e7; }
-
-.grp_waters::before, .grp_waters::after {
-  background-color: #82c6e7; }
-
-.grp_earth .colored {
-  background-color: #c2abab; }
-
-.grp_earth .colored.fill {
-  fill: #c2abab; }
-
-.grp_earth .colored.stroke {
-  stroke: #c2abab; }
-
-.grp_earth::before, .grp_earth::after {
+[data-map="geology"]::before, [data-map="geology"]::after,
+[data-group="geology"]::before,
+[data-group="geology"]::after {
   background-color: #c2abab; }
 
 /* --- Animations --- */
@@ -243,10 +225,10 @@ img {
     opacity: 0; } }
 
 .map {
-  width: 1214px;
-  height: 700px;
+  width: 748px;
+  height: 860px;
   position: relative;
-  transition: transform 0.8s;
+  transition: transform 0.5s;
   transition-timing-function: linear; }
 
 .map svg {
@@ -256,42 +238,59 @@ img {
   width: 100%;
   height: 100%; }
 
-.map svg .pois .poi {
+.map .maps[data-map="fauna"] {
+  fill: rgba(237, 130, 106, 0.42); }
+
+.map .maps[data-map="flora"] {
+  fill: rgba(243, 178, 126, 0.42); }
+
+.map .maps[data-map="reserves"] {
+  fill: rgba(167, 207, 122, 0.42); }
+
+.map .maps[data-map="waters"] {
+  fill: rgba(130, 198, 231, 0.42); }
+
+.map .maps[data-map="geology"] {
+  fill: rgba(194, 171, 171, 0.42); }
+
+.map .regions {
+  fill: rgba(255, 255, 255, 0);
+  stroke-width: 1px;
+  stroke: white; }
+
+.map .pois .poi {
   cursor: pointer; }
 
-.map svg .pois .poi > * {
+.map .pois .poi > * {
   transition: transform 0.12s; }
 
-.map svg .pois .poi .bkg {
+.map .pois .poi .bkg {
   fill: rgba(255, 255, 255, 0.5); }
 
-.map svg .pois .poi .beacon {
+.map .pois .poi .beacon {
   display: none;
   fill: none;
   stroke-width: 16px; }
 
-.map svg .pois .poi .point :first-child {
+.map .pois .poi .point :first-child {
   opacity: .5; }
 
-.map svg .pois .poi .point :last-child {
+.map .pois .poi .point :last-child {
   transition: transform 0.12s; }
 
-.map svg .pois .poi:active .point :last-child,
-.map svg .pois .poi.selected .point :last-child {
+.map .pois .poi:active .point :last-child,
+.map .pois .poi.selected .point :last-child {
   transform: scale(1.33); }
 
-.map svg .pois .poi.selected .beacon {
+.map .pois .poi.selected .beacon {
   display: block;
   animation: pulse 0.8s linear infinite; }
 
-.map svg .pois .poi.hidden {
+.map .pois .poi.hidden {
   pointer-events: none; }
 
-.map svg .pois .poi.hidden > * {
+.map .pois .poi.hidden > * {
   transform: scale(0); }
-
-.canvas {
-  padding: 1000px; }
 
 .menu {
   position: fixed;
@@ -377,7 +376,7 @@ img {
   z-index: 1; }
 
 .sidebar .content {
-  padding: 50px 56px;
+  padding: 48px 56px;
   height: calc(100% - 186px);
   overflow-y: auto; }
 
@@ -389,16 +388,29 @@ img {
   display: flex;
   justify-content: space-between; }
 
+.sidebar .content .back {
+  float: left;
+  width: 30px;
+  height: 30px;
+  background-color: pink; }
+
+.sidebar .content .back:not(.hidden) + .headline {
+  margin-left: 40px; }
+
+.sidebar .content .back.hidden {
+  display: none; }
+
 .sidebar .content .headline {
   margin-bottom: 28px;
   text-transform: uppercase;
-  position: relative; }
+  position: relative;
+  transition: margin-left 0.33s; }
 
 .sidebar .content .headline .title {
-  font: 600 3.6rem/1 "Relish Pro"; }
+  font: 600 3.6rem/1.16 "Relish Pro"; }
 
 .sidebar .content .headline .subtitle {
-  font: 200 2.2rem/1.8 "Relish Pro";
+  font: 200 2.2rem "Relish Pro";
   color: rgba(0, 0, 0, 0.4);
   letter-spacing: 0.05rem;
   padding-left: 55px; }
@@ -406,13 +418,27 @@ img {
 .sidebar .content .headline::after {
   content: '';
   position: absolute;
-  top: 44px;
+  bottom: -11px;
   width: 42px;
   height: 36px;
   clip-path: polygon(0 0, 0 20px, 21px 36px, 42px 20px, 42px 0); }
 
 .sidebar .content p {
   margin-bottom: 24px; }
+
+.sidebar .content .regions .region {
+  margin-bottom: 10px; }
+
+.sidebar .content .regions .region .title {
+  font: 600 2.6rem "Relish Pro";
+  text-transform: uppercase; }
+
+.sidebar .content .regions .region .subtitle {
+  font: 200 1.8rem "Proxima Nova";
+  color: rgba(0, 0, 0, 0.4); }
+
+.sidebar .content .regions.hidden {
+  display: none; }
 
 .sidebar .content .groups {
   margin-bottom: 24px;
@@ -452,6 +478,9 @@ img {
 
 .sidebar .content .groups .group.inactive::after {
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1); }
+
+.sidebar .content .groups.hidden {
+  display: none; }
 
 .sidebar .content .pois .poi {
   height: 36px;
@@ -499,6 +528,9 @@ img {
   max-height: 0;
   margin-bottom: 0;
   overflow: hidden; }
+
+.sidebar .content .pois.hidden {
+  display: none; }
 
 .sidebar.hidden {
   top: 0;

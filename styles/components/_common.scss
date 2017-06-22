@@ -38,20 +38,16 @@
 
 /* --- Colors --- */
 $colors: (
-	map_regions: $accent-color-red,
-	map_landscape: $accent-color-yellow,
-	map_reserves: $accent-color-green,
-	map_waters: $accent-color-blue,
-	map_geology: $accent-color-brown,
-
-	grp_flora: $accent-color-green,
-	grp_fauna: $accent-color-red,
-	grp_waters: $accent-color-blue,
-	grp_earth: $accent-color-brown
+	fauna: $accent-color-red,
+	flora: $accent-color-yellow,
+	reserves: $accent-color-green,
+	waters: $accent-color-blue,
+	geology: $accent-color-brown
 );
 
 @each $key, $value in $colors {
-	.#{ $key } {
+	[data-map="#{ $key }"],
+	[data-group="#{ $key }"] {
 		.colored {
 			background-color: $value;
 

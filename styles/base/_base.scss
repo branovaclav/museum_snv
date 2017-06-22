@@ -1,7 +1,8 @@
 /* --- Fonts --- */
-@font-face { font-family: 'Proxima Nova'; font-weight: 400; src: url('/fonts/proxima-nova_regular.otf'); }
-@font-face { font-family: 'Proxima Nova'; font-weight: 600; src: url('/fonts/proxima-nova_semibold.otf'); }
 @font-face { font-family: 'Proxima Nova'; font-weight: 700; src: url('/fonts/proxima-nova_bold.otf'); }
+@font-face { font-family: 'Proxima Nova'; font-weight: 600; src: url('/fonts/proxima-nova_semibold.otf'); }
+@font-face { font-family: 'Proxima Nova'; font-weight: 400; src: url('/fonts/proxima-nova_regular.otf'); }
+@font-face { font-family: 'Proxima Nova'; font-weight: 200; src: url('/fonts/proxima-nova_condensed-light.otf'); }
 
 @font-face { font-family: 'Relish Pro'; font-weight: 600; src: url('/fonts/relish-pro_medium.ttf'); }
 @font-face { font-family: 'Relish Pro'; font-weight: 300; src: url('/fonts/relish-pro_light.ttf'); }
@@ -97,4 +98,5 @@ img {
 /* --- Transitions --- */
 $fast: .12s;
 $medium: .33s;
-$slow: .8s;
+$slow: .5s;
+$pulse: .8s;

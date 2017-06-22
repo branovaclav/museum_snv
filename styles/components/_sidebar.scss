@@ -12,7 +12,7 @@
 	z-index: 1;
 
 	.content {
-		padding: 50px 56px;
+		padding: 48px 56px;
 		height: calc(100% - 186px);
 		overflow-y: auto;
 	}
@@ -29,17 +29,32 @@
 }
 
 .sidebar .content {
+	.back {
+		float: left;
+		width: 30px;
+		height: 30px;
+		background-color: pink;
+
+		&:not(.hidden) + .headline {
+			margin-left: 40px;
+		}
+	}
+	.back.hidden {
+		display: none;
+	}
+
 	.headline {
 		margin-bottom: 28px;
 		text-transform: uppercase;
 		position: relative;
+		transition: margin-left $medium;
 
 		.title {
-			font: $semibold 3.6rem/1 'Relish Pro';
+			font: $semibold 3.6rem/1.16 'Relish Pro';
 		}
 
 		.subtitle {
-			font: $condensed 2.2rem/1.8 'Relish Pro';
+			font: $condensed 2.2rem 'Relish Pro';
 			color: $light-text-color;
 			letter-spacing: 0.05rem;
 			padding-left: 55px;
@@ -48,7 +63,7 @@
 		&::after {
 			content: '';
 			position: absolute;
-			top: 44px;
+			bottom: -11px;
 			width: 42px;
 			height: 36px;
 			clip-path: polygon(0 0, 0 20px, 21px 36px, 42px 20px, 42px 0);
@@ -57,6 +72,24 @@
 
 	p {
 		margin-bottom: 24px;
+	}
+
+	.regions {
+		.region {
+			margin-bottom: 10px;
+
+			.title {
+				font: $semibold 2.6rem 'Relish Pro';
+				text-transform: uppercase;
+			}
+			.subtitle {
+				font: $condensed 1.8rem 'Proxima Nova';
+				color: $light-text-color;
+			}
+		}
+	}
+	.regions.hidden {
+		display: none;
 	}
 
 	.groups {
@@ -109,6 +142,9 @@
 			}
 		}
 	}
+	.groups.hidden {
+		display: none;
+	}
 
 	.pois {
 		.poi {
@@ -156,7 +192,7 @@
 
 		.poi.selected {
 			&::before {
-				animation: pulse $slow linear infinite;
+				animation: pulse $pulse linear infinite;
 			}
 
 			&::after {
@@ -171,6 +207,9 @@
 			margin-bottom: 0;
 			overflow: hidden;
 		}
+	}
+	.pois.hidden {
+		display: none;
 	}
 }
 

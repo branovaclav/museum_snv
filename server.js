@@ -44,7 +44,7 @@ app.set('view engine', 'ejs');
 
 //app
 app.get('/', (req, res) => {
-	res.render('index.ejs', { pois: pois.data.sorted, maps: constants.maps, groups: constants.groups, locale: locales[lang], lang });
+	res.render('index.ejs', { pois: pois.data.sorted, maps: constants.maps, groups: constants.groups, regions: constants.regions, articles: constants.articles, locale: locales[lang], lang });
 });
 
 app.get('/lang/:lang', (req, res) => {
