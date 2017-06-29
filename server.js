@@ -14,24 +14,26 @@ const root = __dirname;
 const imgpath = path.join(root, 'data', 'images');
 
 let lang = 'sk';
-let pois = {};
-let abcsort = (poi1, poi2) => {
-	let a = poi1.title[lang]; let b = poi2.title[lang];
+let data = {};
+
+let abcsort = (a, b) => {
+	a = a.title[lang]; b = b.title[lang];
 	return a < b ? -1 : (a > b ? 1 : 0);
 };
 
 const db = new loki('data/db.js', {
 	autoload: true,
 	autoloadCallback: () => {
-		let collection = db.getCollection('pois');
-		pois = {
-			collection,
-			data: {
-				all: collection.data,
-				sorted: collection.chain().sort(abcsort).data()
-			}
-		};
-		collection.data.forEach(poi => {
+		['pois', 'articles'].forEach(collection => {
+			let dbcoll = db.getCollection(collection);
+			data[collection] = {
+				collection: dbcoll,
+				all: dbcoll.data
+			};
+		});
+
+		data.pois.sorted = data.pois.collection.chain().sort(abcsort).data();
+		data.pois.all.forEach(poi => {
 			try { poi.files = fs.readdirSync(path.join(imgpath, poi.folder)).filter(file => fs.lstatSync(path.join(imgpath, poi.folder, file)).isFile()).map(file => path.join(poi.folder, file)); }
 			catch (err) { poi.files = []; }
 		});
@@ -44,34 +46,37 @@ app.set('view engine', 'ejs');
 
 //app
 app.get('/', (req, res) => {
-	res.render('index.ejs', { pois: pois.data.sorted, maps: constants.maps, groups: constants.groups, regions: constants.regions, articles: constants.articles, locale: locales[lang], lang });
+	res.render('index.ejs', { pois: data.pois.sorted, maps: constants.maps, groups: constants.groups, regions: constants.regions, articles: data.articles.all, locale: locales[lang], lang });
 });
 
 app.get('/lang/:lang', (req, res) => {
 	lang = req.params.lang;
-	pois.data.sorted = pois.collection.chain().sort(abcsort).data();
+	data.pois.sorted = data.pois.collection.chain().sort(abcsort).data();
 	res.redirect('/');
 });
 
 //admin
 app.get('/admin', (req, res) => {
-	res.render('admin.ejs', { pois: pois.data.all, groups: constants.groups });
+	res.render('admin.ejs', { pois: data.pois.all, articles: data.articles.all, groups: constants.groups, regions: constants.regions });
 });
 
-app.post('/admin', (req, res) => {
-	res.send( pois.collection.insert(req.body.data) );
+app.post('/admin/:collection', (req, res) => {
+	let collection = req.params.collection;
+	res.send( data[ collection ].collection.insert(req.body.data) );
 	db.saveDatabase('db');
 });
 
-app.put('/admin', (req, res) => {
-	let doc = pois.collection.get(req.body.id);
+app.put('/admin/:collection', (req, res) => {
+	let collection = req.params.collection;
+	let doc = data[ collection ].collection.get(req.body.id);
 	Object.assign(doc, req.body.data);
-	res.send( pois.collection.update(doc) );
+	res.send( data[ collection ].collection.update(doc) );
 	db.saveDatabase('db');
 });
 
-app.delete('/admin', (req, res) => {
-	res.send( pois.collection.remove(pois.collection.get(req.body.id)) );
+app.delete('/admin/:collection', (req, res) => {
+	let collection = req.params.collection;
+	res.send( data[ collection ].collection.remove(data[ collection ].collection.get(req.body.id)) );
 	db.saveDatabase('db');
 });
 
@@ -87,6 +92,7 @@ app.listen(port, host, () => {
 
 //seed
 app.get('/seed', (req, res) => {
+	/*
 	db.removeCollection('pois');
 	db.addCollection('pois').insert([
 		{
@@ -106,6 +112,24 @@ app.get('/seed', (req, res) => {
 			folder: 'nt_001'
 		}
 	]);
+	*/
+	db.removeCollection('articles');
+	db.addCollection('articles');
+/*	db.addCollection('articles');.insert([
+		{
+			title: { sk: 'Fauna Spiša', en: 'Spis Fauna' },
+			description: { sk: '', en: '' },
+			group: 'fauna',
+			region: ''
+		},
+		{
+			title: { sk: 'Chránené územia Vysokých Tatier', en: 'Vysoke Tatry Natural Reserves' },
+			description: { sk: '', en: '' },
+			group: 'reserves',
+			region: 'vysoke_tatry'
+		}
+	]);
+*/
 	db.saveDatabase('db');
 	res.redirect('/admin')
 });

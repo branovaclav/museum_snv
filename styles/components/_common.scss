@@ -57,6 +57,7 @@ $colors: (
 
 		&::before, &::after {
 			background-color: $value;
+			background-position: -#{ (index($colors, ($key $value)) - 1) * 100 }px 0;
 		}
 	}
 }

@@ -31,12 +31,12 @@
 .sidebar .content {
 	.back {
 		float: left;
-		width: 30px;
+		width: 40px;
 		height: 30px;
-		background-color: pink;
+		background: url("/images/icons_act.svg") 0 -240px no-repeat;
 
 		&:not(.hidden) + .headline {
-			margin-left: 40px;
+			margin-left: 56px;
 		}
 	}
 	.back.hidden {
@@ -47,7 +47,6 @@
 		margin-bottom: 28px;
 		text-transform: uppercase;
 		position: relative;
-		transition: margin-left $medium;
 
 		.title {
 			font: $semibold 3.6rem/1.16 'Relish Pro';
@@ -114,6 +113,7 @@
 				left: 0;
 				width: 42px;
 				height: 42px;
+
 				border-radius: 2px;
 				transition: transform $fast;
 			}

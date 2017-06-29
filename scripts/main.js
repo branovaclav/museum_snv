@@ -45,7 +45,6 @@ let Sidebar = class extends Component {
 				paragraph: $('.sidebar p')
 			},
 			regions: $('.sidebar .regions'),
-			groups: $('.sidebar .groups'),
 			points: $('.sidebar .pois')
 		}
 
@@ -55,14 +54,17 @@ let Sidebar = class extends Component {
 	article (map, region) {
 		region = region || 'global';
 
-		let art = this.el.article;
-		art.headline.attr({ 'data-map': map });
-		art.title.text( data.articles[ map ][ region ].title );
-		art.subtitle.text( $(`.menu .item[data-map="${ map }"]`).find('.subtitle').text() );
-		art.paragraph.text( data.articles[ map ][ region ].description );
+		let article = data.articles[ map ][ region ];
+		if (article.title.length == 0 && article.description.length == 0)
+			article = data.articles[ map ].global;
+
+		this.el.article.headline.attr({ 'data-map': map });
+		this.el.article.title.text( article.title );
+		this.el.article.subtitle.text( $(`.menu .item[data-map="${ map }"]`).find('.subtitle').text() );
+		this.el.article.paragraph.text( article.description );
 
 		this.el.regions.toggleClass('hidden', region != 'global');
-		this.el.groups.add(this.el.points).add(this.el.back).toggleClass('hidden', region == 'global');
+		this.el.points.add(this.el.back).toggleClass('hidden', region == 'global');
 	}
 };
 
@@ -74,16 +76,13 @@ let Map = class extends Component {
 		this.el = {
 			panel: $('.map'),
 			maps: $('.map .maps'),
-			regions: $('.map .regions .region')
+			regions: $('.map .regions .region'),
+			points: $('.map .pois .poi')
 		};
 
 		this.map = { x: this.el.panel.position().left, y: this.el.panel.position().top, width: this.el.panel.width(), height: this.el.panel.height() };
 		this.viewport = { x: 0 + padding, y: 149 + padding, width: $(window).width() - 586 - 2 * padding, height: $(window).height() - 148 - 2 * padding };
-
-		this.initial = {
-			left: this.map.x - this.viewport.x - (this.viewport.width - this.map.width) / 2,
-			top: this.map.y - this.viewport.y - (this.viewport.height - this.map.height) / 2
-		};
+		this.initial = { left: this.map.x - this.viewport.x - (this.viewport.width - this.map.width) / 2, top: this.map.y - this.viewport.y - (this.viewport.height - this.map.height) / 2 };
 		window.setTimeout(() => { window.scrollTo(this.initial.left, this.initial.top); }, 1);
 	}
 
@@ -107,8 +106,9 @@ let Map = class extends Component {
 	zoom (region) {
 		if (region == undefined) {
 			this.el.panel.css({ transform: 'none' });
-			$('body').animate({ scrollLeft: this.initial.left, scrollTop: this.initial.top }, .8 * 1000);
+			this.el.points.each((i, point) => $(point).attr({ transform: $(point).attr('transform').replace(/^(.*?)(scale\(.*\))(.*?)$/, `$1scale(1)$3`) }));
 			this.el.maps.removeAttr('data-region');
+			$('body').animate({ scrollLeft: this.initial.left, scrollTop: this.initial.top }, .8 * 1000);
 			return;
 		}
 
@@ -122,8 +122,9 @@ let Map = class extends Component {
 
 		this.el.panel.css({ 'transform-origin': `${ (box.x + box.width / 2) / this.map.width * 100 }% ${ (box.y + box.height / 2) / this.map.height * 100 }%` });
 		this.el.panel.css({ transform: `scale(${ scale })` });
-		$('body').animate({ scrollTop: pos.top, scrollLeft: pos.left }, .5 * 1000);
+		this.el.points.each((i, point) => $(point).attr({ transform: $(point).attr('transform').replace(/^(.*?)(scale\(.*\))(.*?)$/, `$1scale(${ 1 / scale })$3`) }));
 		this.el.maps.attr({ 'data-region': region });
+		$('body').animate({ scrollTop: pos.top, scrollLeft: pos.left }, .5 * 1000);
 	}
 };
 
@@ -145,7 +146,7 @@ let Groups = class extends Component {
 
 	toggle (group) {
 		this.el.groups.filter(`[data-group=${ group }]`).toggleClass('inactive');
-		Component.points.filter(this.el.groups.filter(':not(.inactive)').map((i, group) => $(group).data('group')).toArray().join(','), 'vt');
+		Component.points.filter(this.el.groups.filter(':not(.inactive)').map((i, group) => $(group).data('group')).toArray().join(','));
 		Component.detail.check();
 	}
 };
@@ -191,7 +192,8 @@ let Points = class extends Component {
 	}
 
 	filter (groups, region) {
-		this.el.points.each((i, point) => $(point).toggleClass('hidden', $(point).data('region') != region || groups.indexOf($(point).data('group')) < 0));
+		// this.el.points.each((i, point) => $(point).toggleClass('hidden', $(point).data('region') != region || groups.indexOf($(point).data('group')) < 0));
+		this.el.points.each((i, point) => $(point).toggleClass('hidden', groups.indexOf($(point).data('group')) < 0));
 		if (this.el.points.filter('.selected.hidden').length)
 			this.select();
 	}
@@ -229,7 +231,7 @@ let Detail = class extends Component {
 		if (poi == undefined)
 			return;
 
-		this.el.headline.attr({ 'class': `headline grp_${ data[poi].group }`}).text( data[poi].title );
+		this.el.headline.attr({ 'data-group': data[poi].group }).text( data[poi].title );
 		this.el.description.text( data[poi].description );
 		Component.viewer.select(poi, this.el.panel.is('.maximized'));
 		this.check();

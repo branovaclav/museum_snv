@@ -1,0 +1,160 @@
+/* colors */
+$page-bkg-color: rgb(205,213,220);
+$block-bkg-color: rgb(233,240,247);
+$menu-bkg-color: rgb(89,106,131);
+
+$regular-text-color: black;
+$inverse-text-color: white;
+$label-text-color: rgb(70,87,104);
+
+$accent-1-color: rgb(0,155,229);
+$accent-2-color: rgb(130,186,2);
+
+/* reset */
+body {
+	margin: 0;
+	padding: 0;
+
+	background-color: $page-bkg-color;
+	font: normal 12pt sans-serif;
+}
+
+table {
+	border-spacing: 0;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/* commons */
+a {
+	display: block;
+	color: $regular-text-color;
+	text-decoration: none;
+}
+
+label {
+	display: block;
+	font: bold 11pt/1.8 sans-serif;
+	color: $label-text-color;
+
+	&::after { content: ':'; }
+}
+
+.form {
+	columns: 300px 2;
+	margin-bottom: 10px;
+
+	& > * { margin-bottom: 10px; }
+
+	input,
+	select,
+	textarea {
+		display: block;
+		width: 100%;
+		padding: 10px;
+		background-color: white;
+		border: solid 1px #9fa8a3;
+		font: normal 12pt sans-serif;
+
+		box-sizing: border-box;
+		border-radius: 0;
+		-webkit-appearance: none;
+	}
+
+	textarea {
+		height: 250px;
+	}
+}
+
+.bar {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 2.5px;
+	margin-bottom: 10px;
+	background-color: $block-bkg-color;
+
+	&.center { justify-content: center; }
+	& > * { margin: 2.5px; }
+}
+
+.button {
+	padding: 10px 20px;
+	background-color: $accent-1-color;
+	color: $inverse-text-color;
+	cursor: pointer;
+
+	&.alt { background-color: $accent-2-color; }
+}
+
+.table {
+	td {
+		padding: 5px;
+	}
+
+	thead {
+		font: bold 11pt/1.8 sans-serif;
+		color: $label-text-color;
+	}
+
+	tbody {
+		td {
+			border-top: solid $page-bkg-color 1px;
+			background-color: $block-bkg-color;
+		}
+	}
+
+	.actions {
+		width: 1%;
+		white-space: nowrap;
+
+		.button { display: inline-block; }
+	}
+}
+
+.groups,
+.regions {
+	.button:not(.selected) {
+		background-color: white;
+		color: $regular-text-color;
+		box-shadow: inset 0 0 0 1px rgba(black, .2);
+	}
+}
+
+/* tabs */
+.tabs {
+	padding: 10px;
+	background-color: $menu-bkg-color;
+
+	ul { display: flex; }
+	.button:not(.selected) {
+		background-color: transparent;
+	}
+}
+
+.panels {
+	max-width: 980px;
+	padding: 30px;
+
+	.panel:not(:first-child) { display: none; }
+}
+
+/* articles */
+
+/* points */
+#pois {
+	.wrapper {
+		display: none;
+	}
+
+	.form {
+		.labels label,
+		[name="group"], [name="region"], [name="folder"], [name="position"] {
+			display: inline-block;
+			width: calc(50% - 4px);
+		}
+	}
+}

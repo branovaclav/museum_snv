@@ -2,84 +2,151 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Spiš v kocke - Admin</title>
 
 	<link rel="stylesheet" href="/styles/admin.css">
 
 	<script src="/scripts/jquery-3.2.0.min.js"></script>
 	<script src="/scripts/admin.js"></script>
+
+	<script>
+		let data = {
+			articles: <%- JSON.stringify(articles) %>,
+			pois: <%- JSON.stringify(pois) %>
+		};
+
+		// console.log(data);
+	</script>
 </head>
 <body>
-	<ul class="pois">
-		<li class="poi selected" data-id="">
-			<div class="empty">New Point</div>
-			<div class="actions">
-				<!-- <a class="create">Create</a> -->
+	<nav class="tabs">
+		<ul>
+			<li><a href="#pois" class="button tab selected">Body záujmu</a></li>
+			<li><a href="#articles" class="button tab">Texty v lište</a></li>
+		</ul>
+	</nav>
+	<section class="panels">
+		<div id="pois" class="panel">
+			<div class="bar">
+				<a class="button create">Nový bod</a>
 			</div>
-			<form id="form">
+			<div class="wrapper">
+				<form class="form">
+					<input type="hidden" name="id">
+					<div>
+						<label>Skupina a región</label>
+						<select name="group">
+							<% for (let group in groups) { %>
+								<option value="<%= group %>"><%= groups[group].title.sk %></option>
+							<% } %>
+						</select>
+						<select name="region">
+							<% for (let region in regions) { %>
+								<option value="<%= region %>"><%= regions[region].title.sk %></option>
+							<% } %>
+						</select>
+					</div>
+					<div>
+						<label>Nadpis (slovensky)</label>
+						<input type="text" name="title_sk">
+					</div>
+					<div>
+						<label>Popis (slovensky)</label>
+						<textarea name="description_sk"></textarea>
+					</div>
+					<div class="labels">
+						<label>Pozícia na mape</label>
+						<label>Priečinok s fotkami</label>
+						<input type="text" name="position">
+						<input type="text" name="folder">
+					</div>
+					<div>
+						<label>Nadpis (anglicky)</label>
+						<input type="text" name="title_en">
+					</div>
+					<div>
+						<label>Popis (anglicky)</label>
+						<textarea name="description_en"></textarea>
+					</div>
+				</form>
+				<div class="bar center">
+					<a class="button cancel">Zrušiť</a>
+					<a class="button submit">Uložiť</a>
+				</div>
+			</div>
+			<table class="table pois">
+				<thead>
+					<tr>
+						<td>Skupina</td>
+						<td>Region</td>
+						<td>Nadpis</td>
+						<td>Priečinok s fotkami</td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+					<% for (let poi of pois.slice(0).reverse()) { %>
+					    <tr class="poi">
+							<td class="group">
+								<%= groups[poi.group].title.sk %>
+							</td>
+							<td class="region">
+								<%= regions[poi.region].title.sk %>
+							</td>
+							<td class="title">
+								<%= poi.title.sk %>
+							</td>
+							<td class="folder">
+								<%= poi.folder %>
+							</td>
+							<td class="actions">
+								<a class="button alt edit" data-id="<%= poi.$loki %>">Edit</a>
+								<a class="button alt delete" data-id="<%= poi.$loki %>">Delete</a>
+							</td>
+					    </tr>
+					<% } %>
+				</tbody>
+			</table>
+		</div>
+		<div id="articles" class="panel">
+			<div class="bar groups">
+				<% for (let group in groups) { %>
+					<a class="button" data-group="<%= group %>"><%= groups[group].title.sk %></a>
+				<% } %>
+			</div>
+
+			<div class="bar regions">
+				<a class="button alt" data-region="global">Všetky oblasti</a>
+				<% for (let region in regions) { %>
+					<a class="button alt" data-region="<%= region %>"><%= regions[region].title.sk %></a>
+				<% } %>
+			</div>
+			<form class="form">
 				<input type="hidden" name="id">
-				<input type="text" placeholder="position left" name="position_left">
-				<input type="text" placeholder="position top" name="position_top">
-				<input type="text" placeholder="title sk" name="title_sk">
-				<input type="text" placeholder="title en" name="title_en">
-				<textarea placeholder="description sk" name="description_sk"></textarea>
-				<textarea placeholder="description en" name="description_en"></textarea>
-				<select name="group">
-					<% for (let group in groups) { %>
-						<option value="<%= group %>"><%= groups[group].title.sk %></option>
-					<% } %>
-				</select>
-
-				<% let regions = {
-					kh: 'Hornádska kotlina',
-					lv: 'Levočské vrchy',
-					nt: 'Nízke Tatry',
-					p: 'Pieniny',
-					sr: 'Slovenský raj',
-					sm: 'Spišská magura',
-					vt: 'Vysoké tatry'
-				}; %>
-				<select name="region">
-					<% for (let region in regions) { %>
-						<option value="<%= region %>"><%= regions[region] %></option>
-					<% } %>
-				</select>
-
-				<input type="text" placeholder="img folder" name="folder">
-				<button type="submit">Submit</button>
+				<input type="hidden" name="group">
+				<input type="hidden" name="region">
+				<div>
+					<label>Nadpis (slovensky)</label>
+					<input type="text" name="title_sk">
+				</div>
+				<div>
+					<label>Popis (slovensky)</label>
+					<textarea name="description_sk"></textarea>
+				</div>
+				<div>
+					<label>Nadpis (anglicky)</label>
+					<input type="text" name="title_en">
+				</div>
+				<div>
+					<label>Popis (anglicky)</label>
+					<textarea name="description_en"></textarea>
+				</div>
 			</form>
-		</li>
-		<% for (let poi of pois.slice(0).reverse()) { %>
-		    <li class="poi" data-id="<%= poi.$loki %>">
-				<ul>
-			    	<li class="position">
-						<span class="left"><%= poi.position.left %></span>
-						<span class="top"><%= poi.position.top %></span>
-					</li>
-					<li class="title">
-						<span class="sk"><%= poi.title.sk %></span>
-						<span class="en"><%= poi.title.en %></span>
-					</li>
-					<li class="description">
-						<span class="sk"><%= poi.description.sk %></span>
-						<span class="en"><%= poi.description.en %></span>
-					</li>
-					<li class="group">
-						<%= poi.group %>
-					</li>
-					<li class="region">
-						<%= regions[poi.region] %>
-					</li>
-					<li class="folder">
-						<%= poi.folder %>
-					</li>
-					<li class="actions">
-						<!-- <a class="update">Update</a> -->
-						<a class="delete">Delete</a>
-					</li>
-				</ul>
-		    </li>
-		<% } %>
-	</ul>
+			<div class="bar center">
+				<a class="button submit">Uložiť</a>
+			</div>
+		</div>
+	</section>
 </body>
 </html>

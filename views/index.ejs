@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=192, height=1080, initial-scale=1">
+	<meta name="viewport" content="width=1920, height=1080, initial-scale=1">
 	<title>Spiš v kocke</title>
 
 	<!-- stylesheets -->
@@ -25,12 +25,13 @@
 			<% } %>
 
 			articles: {
-				<% for (let category in articles) { %>
-					<%= category %>: {
-						<% for (let region in articles[category]) { %>
+				<% for (let group in groups) { %>
+					<%= group %>: {
+						<% for (let region of ['global'].concat(Object.keys(regions))) { %>
 							<%= region %>: {
-								title: '<%- articles[category][region].title[lang] %>',
-								description: '<%- articles[category][region].description[lang] %>' + '<%- articles[category][region].title[lang] %>: ' + 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+								<% let article = articles.find(article => article.group == group && article.region == region) %>
+								title: '<%- article ? article.title[lang] : '' %>',
+								description: '<%- article ? article.description[lang] : '' %>'
 							},
 						<% } %>
 					},
@@ -95,13 +96,22 @@
 
 	<nav class="sidebar">
 		<section class="content">
-			<a class="back hidden">B</a>
+			<a class="back hidden"></a>
 			<h1 class="headline">
 				<div class="title">Vysoké Tatry</div>
 				<div class="subtitle"></div>
 			</h1>
 			<p>
 			</p>
+			<ul class="groups">
+				<% for (let group in groups) { %>
+					<li>
+						<a class="group" data-group="<%= group %>">
+							<%= groups[group].title[lang] %>
+						</a>
+					</li>
+				<% } %>
+			</ul>
 			<ul class="regions">
 				<% for (let region in regions) { %>
 					<li>
@@ -110,15 +120,6 @@
 								<div class="title"><%= regions[region].title[lang] %></div>
 								<div class="subtitle"><%= regions[region].subtitle[lang] %></div>
 							</h2>
-						</a>
-					</li>
-				<% } %>
-			</ul>
-			<ul class="groups hidden">
-				<% for (let group in groups) { %>
-					<li>
-						<a class="group" data-group="<%= group %>">
-							<%= groups[group].title[lang] %>
 						</a>
 					</li>
 				<% } %>

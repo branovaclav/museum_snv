@@ -145,7 +145,8 @@ img {
 [data-map="fauna"]::before, [data-map="fauna"]::after,
 [data-group="fauna"]::before,
 [data-group="fauna"]::after {
-  background-color: #ed826a; }
+  background-color: #ed826a;
+  background-position: -0px 0; }
 
 [data-map="flora"] .colored,
 [data-group="flora"] .colored {
@@ -162,7 +163,8 @@ img {
 [data-map="flora"]::before, [data-map="flora"]::after,
 [data-group="flora"]::before,
 [data-group="flora"]::after {
-  background-color: #f3b27e; }
+  background-color: #f3b27e;
+  background-position: -100px 0; }
 
 [data-map="reserves"] .colored,
 [data-group="reserves"] .colored {
@@ -179,7 +181,8 @@ img {
 [data-map="reserves"]::before, [data-map="reserves"]::after,
 [data-group="reserves"]::before,
 [data-group="reserves"]::after {
-  background-color: #a7cf7a; }
+  background-color: #a7cf7a;
+  background-position: -200px 0; }
 
 [data-map="waters"] .colored,
 [data-group="waters"] .colored {
@@ -196,7 +199,8 @@ img {
 [data-map="waters"]::before, [data-map="waters"]::after,
 [data-group="waters"]::before,
 [data-group="waters"]::after {
-  background-color: #82c6e7; }
+  background-color: #82c6e7;
+  background-position: -300px 0; }
 
 [data-map="geology"] .colored,
 [data-group="geology"] .colored {
@@ -213,7 +217,8 @@ img {
 [data-map="geology"]::before, [data-map="geology"]::after,
 [data-group="geology"]::before,
 [data-group="geology"]::after {
-  background-color: #c2abab; }
+  background-color: #c2abab;
+  background-position: -400px 0; }
 
 /* --- Animations --- */
 @keyframes pulse {
@@ -314,7 +319,7 @@ img {
   margin: 0 4px; }
 
 .menu ul li:last-child {
-  flex-grow: 0; }
+  flex-grow: .4; }
 
 .menu .item {
   height: 100%;
@@ -346,7 +351,9 @@ img {
   content: '';
   position: absolute;
   width: 56px;
-  height: 96px; }
+  height: 96px;
+  background-image: url("/images/icons_map.svg");
+  background-repeat: no-repeat; }
 
 .menu .item::after {
   opacity: 0;
@@ -390,12 +397,12 @@ img {
 
 .sidebar .content .back {
   float: left;
-  width: 30px;
+  width: 40px;
   height: 30px;
-  background-color: pink; }
+  background: url("/images/icons_act.svg") 0 -240px no-repeat; }
 
 .sidebar .content .back:not(.hidden) + .headline {
-  margin-left: 40px; }
+  margin-left: 56px; }
 
 .sidebar .content .back.hidden {
   display: none; }
@@ -403,8 +410,7 @@ img {
 .sidebar .content .headline {
   margin-bottom: 28px;
   text-transform: uppercase;
-  position: relative;
-  transition: margin-left 0.33s; }
+  position: relative; }
 
 .sidebar .content .headline .title {
   font: 600 3.6rem/1.16 "Relish Pro"; }
